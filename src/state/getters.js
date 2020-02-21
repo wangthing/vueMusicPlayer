@@ -1,6 +1,6 @@
 export default{
     getGroupById: (state, getters) => (id) => {
-        
+        if(state.recommend == null) return 
         return state.recommend.response.recomPlaylist.data.v_hot.filter(item => {
             return item.content_id == id
         })

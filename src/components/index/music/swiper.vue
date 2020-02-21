@@ -64,14 +64,28 @@ export default {
 .main
     height: 14rem;    
     box-sizing: border-box;
+
     .swiper
     //    width: 100%;
     //    padding: 0 1.2rem;
     .swiper-item
         // paddin g: 0 1.2rem;
         margin: 0 auto;
+    
         img
             border-radius: .8rem;
             width: 96%;
             height: 100%;
+
+</style>
+
+<style lang="sass">
+.main
+     /deep/ .mint-swipe-indicator
+        // font-size: 12px
+        background-color: #a1a1a1
+        opacity: 1
+     /deep/ .mint-swipe-indicator.is-active
+        background-color: white 
+  
 </style>

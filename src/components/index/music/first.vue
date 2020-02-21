@@ -248,9 +248,9 @@ export default {
                 flex-wrap: wrap;
                 justify-content: space-between
                 .list-item
-                    width: 32.3%;
+                    width: 31.3%;
                     // height: 14rem;
-                    margin: 0 .5% .1% 0;
+                    margin: 0 1% .1% 0;
                     .cover
                         // height: 14rem;
                         margin: 0.5rem 0;

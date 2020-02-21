@@ -77,7 +77,7 @@ export default {
                 })
                 this.getSongVkey(mid, id)
                 return;
-            }
+            }   
 
             this.$http.get(`getSongInfo`, {
               params: {songmid: mid}
@@ -146,7 +146,7 @@ export default {
         z-index: 9999
     .loc
         position: absolute
-        top: -20rem
+        top: -30rem
         font-size: 0
     .song-list
         font-size: 1.5rem;
@@ -171,7 +171,7 @@ export default {
                     left: 50%
                     content: ''
                     position: absolute
-                    background-color: rgba(12, 125, 12, .2)
+                    background-color: rgba(12, 125, 12, .1)
                 display: flex
                 justify-content: space-between
                 align-items: center

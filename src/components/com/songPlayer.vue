@@ -48,6 +48,7 @@ export default {
             }
         },
         onPlay () {
+            console.log("开始播放了");
             Indicator.close()
             this.isStop = false
         },
@@ -65,7 +66,7 @@ export default {
             Indicator.close()
         },
         onEnded () {
-
+            this.isStop = true
         },
         onLoadStart (e) {
             e.target.pause()
@@ -75,6 +76,8 @@ export default {
             })
         },
         onCanPlay (e) {
+            console.log("可以播放了");
+            this.isStop = false 
             e.target.play()
             Indicator.close()
         }
@@ -134,13 +137,13 @@ export default {
             i
                 font-size: 8rem
         .right
-            width: 20%;
+            width: 25vw;
             i
-                margin-left: .5rem
-                font-size: 2.4rem
+                margin-left: 1rem
+                font-size: 2.5rem
                 color: $baseColor
         .left
-            width: 60%
+            width: 65vw
             i
                 color: $baseColor
                 font-size: 4rem
