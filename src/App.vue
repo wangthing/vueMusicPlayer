@@ -4,13 +4,17 @@
     <keep-alive exclude="group">
       <router-view/>
     </keep-alive>
-
+   
+      <Lyric></Lyric>
+      
+    
     <Player/>
   </div>
 </template>
 
 <script>
 
+import Lyric from '@/components/com/lyric'
 
 import Player from '@/components/com/songPlayer'
 export default {
@@ -21,7 +25,7 @@ export default {
     }
   },
   components: {
-    
+    Lyric,    
     Player
   },
   created () {

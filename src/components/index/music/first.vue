@@ -158,7 +158,9 @@ export default {
         },
         getNewAlbum () {
             return this.recommend.response.new_album.data.albums
-        }
+        },
+        
+
     },
     mounted() {
         this.getRecommendList();

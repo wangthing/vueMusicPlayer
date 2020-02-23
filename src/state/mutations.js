@@ -12,5 +12,8 @@ export default {
     setNowPlay: (state, payload) => {
         // console.log(payload.song);
         state.nowPlaySong = payload.song
+    },
+    switchLyric: (state) => {
+        state.showLyric = !state.showLyric
     }
 }

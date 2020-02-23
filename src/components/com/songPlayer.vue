@@ -1,6 +1,6 @@
 <template>
-    <div id="player" v-if="!!getSongPlay ">
-        <audio :src="getNowPlayUrl ? getNowPlayUrl : '' "  id="audio" autoplay 
+    <div id="player" v-if="!!getSongPlay" @click="switchLyric"  :class="getShowLyric ? 'showLyric' : ''">
+        <audio ref="audio" :src="getNowPlayUrl ? getNowPlayUrl : '' "  id="audio" autoplay 
         @play="onPlay"
         @error="onError"
         @waiting="onWaiting"
@@ -17,16 +17,16 @@
             </div>
         </div>
         <div class="right">
-            <i v-if="isStop" class="iconfont icon-bofang1" @click="StopOrStart"></i>
-            <i v-if="!isStop" class="iconfont icon-zantingtingzhi" @click="StopOrStart"></i>
+            <i v-if="isStop" class="iconfont icon-bofang1" @click.stop="StopOrStart"></i>
+            <i v-if="!isStop" class="iconfont icon-zantingtingzhi" @click.stop="StopOrStart"></i>
             <i class="iconfont icon-bofangliebiao"></i>
         </div>
+
     </div>
 </template>
 
 <script>
 import {Indicator} from 'mint-ui'
-
 export default {
     name: "songPlay",
     data() {
@@ -35,7 +35,14 @@ export default {
             isStop: false
         }
     },
+    components: {
+        
+    },
     methods: {
+        switchLyric () {
+            this.$store.commit('switchLyric')
+        }
+        ,
         StopOrStart () {
             var audio = document.getElementById('audio')
             if(audio.src.indexOf('qqmusic') == -1) return;
@@ -88,10 +95,12 @@ export default {
         },
         getNowPlayUrl () {
             return this.$store.state.nowPlayUrl
+        },
+        getShowLyric () {
+            return this.$store.state.showLyric
         }
     },
     mounted() {
-        
     },
 }
 </script>
@@ -100,6 +109,7 @@ export default {
     $baseColor: #31c27c;
     #player
         position: fixed;
+        z-index: 9999
         bottom: 0rem;
         width: 100%
         height: 6rem;
@@ -112,6 +122,8 @@ export default {
         align-items: center;
         padding: 0 1.5rem
         box-sizing: border-box
+        &.showLyric
+            
         .left
             font-size: 1.4rem
             text-align: left

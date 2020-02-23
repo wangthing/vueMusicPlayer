@@ -3,5 +3,6 @@ export default{
     nowPlaySong:null,
     recentlyPlayed:[],//最近播放
     nowPlayUrl:[],  //正在播放的url
+    showLyric: false //是否显示歌词页面
     
 }
