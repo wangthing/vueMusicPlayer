@@ -15,5 +15,8 @@ export default {
     },
     switchLyric: (state) => {
         state.showLyric = !state.showLyric
+    },
+    stopOrPlay (state, payload) {
+        state.isStop = payload.value
     }
 }

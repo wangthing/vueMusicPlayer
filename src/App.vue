@@ -5,18 +5,17 @@
       <router-view/>
     </keep-alive>
    
-      <Lyric></Lyric>
+      <!-- <Lyric></Lyric> -->
       
     
-    <Player/>
+    <Player></Player>
   </div>
 </template>
 
 <script>
 
-import Lyric from '@/components/com/lyric'
 
-import Player from '@/components/com/songPlayer'
+import Player from '@/components/player/player'
 export default {
   name: 'App',
   data() {
@@ -25,7 +24,7 @@ export default {
     }
   },
   components: {
-    Lyric,    
+    
     Player
   },
   created () {
