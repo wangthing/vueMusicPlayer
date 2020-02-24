@@ -152,8 +152,8 @@ export default {
             return this.$store.state.nowPlaySong
         },
         audio () {
-                return document.getElementById('audio')
-            
+
+                return  this.$store.state.audio
         },
         getCurrentTimeFomated () {
             return this.returnTime(this.getCurrentTime)
@@ -165,7 +165,6 @@ export default {
             return getComputedStyle(this.$refs.progressBar).width
         },
         getPercent () {
-            
             return (this.getCurrentTime / this.audio.duration)
         },
         getCurrentWidth () {
@@ -213,17 +212,14 @@ export default {
             }
         }, 10)
         // 给歌词添加滚动监听
-        document.getElementById('lyricwrap').addEventListener('scroll', utils.throttle(this.onScroll, 1000))
+        document.getElementById('lyricwrap').addEventListener('scroll', utils.throttle(this.onScroll, 300))
 
         this.getLyric(this.songInfo.track_info.id,this.songInfo.track_info.mid)
     },
     created () {
     },
     updated () {
-        if(!this.audio) {
-            console.log("hasdasda");
-            this.audio = document.getElementById('audio')
-        }
+
     },
     destroyed () {
         
@@ -269,8 +265,11 @@ export default {
             justify-content: flex-start
             align-items: flex-start
             .hide   
-                font-size: 2.5rem    
-                padding: 1rem        
+                font-size: 2.5rem 
+                position: absolute
+                top: 0rem
+                left: 1rem   
+                padding: 1.5rem        
                 color: white
             .title
                 color: #f1f2f3
@@ -281,19 +280,20 @@ export default {
                 .singer
                     font-size: 1.4rem
         .lyric-wrap
-            margin: 6rem 0 3rem
+            margin: 4rem 0 3rem
             height: 60% 
             overflow: auto
-            font-size: 1.5rem
+            font-size: 1.6rem
             color: #f1f2f3
-            line-height: 2.6
+            line-height: 3
             padding-bottom: 20rem
             box-sizing: border-box
+
             // text-align: left
             &::-webkit-scrollbar
                 display: none
             p
-                transition: all .5s
+                transition: all .3s
                 .location
                     font-size: 0
                     position: relative
@@ -314,7 +314,7 @@ export default {
                 .progress-bar
                     height: .4rem
                     // width: 
-                    background-color: rgba(225, 245, 235, .5)
+                    background-color: rgba(225, 205, 235, .5)
                     // opacity: .2
                     border-radius: .2rem
                     .now-progress

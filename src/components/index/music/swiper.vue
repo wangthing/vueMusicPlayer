@@ -1,12 +1,19 @@
 <template>
-  <div class="main">
+  <div class="main" v-if="getRecommend">
     
       <mt-swipe :auto="4000" class="swiper" @change="imgChange">
-        <mt-swipe-item class="swiper-item"  v-for="(item,index) in topLists" :key="index">
+        <mt-swipe-item class="swiper-item"  
+        v-for="(item,index) in getRecommend.response.focus.data.content" 
+        :key="index"
+        :data-focusid="item.id"
+        :data-id = "item.jump_info.url"
+        :data-type="item.type"
+        @click.native="goCheck"
+        >
           <img
             :src="item.pic_info.url"
             alt=""
-            data-id="item.mv_id"
+            :data-src = 'item.pic_info.url'
           />
         </mt-swipe-item>
       </mt-swipe>
@@ -16,6 +23,7 @@
 
 <script>
 import {getCarousel} from '@/api/recommend_swiper'
+import {Toast} from 'mint-ui'
 import {CODE_SUCCESS} from "@/api/config"
 export default {
   name: "vSwiper",
@@ -31,26 +39,36 @@ export default {
         //   console.log(getCarousel);
 
       },
-      getRecommend () {
-        
+      goCheck (e) {
+        var data = e.currentTarget.dataset
+        var type = data.type
+        if(true) {
+          Toast({
+              message: '暂不支持！',
+            // iconClass: 'iconfont icon-fufei',
+              duration: 2000
+          })
+          return 
+        }
+        var id = data.id
+          this.$router.push({path: `/recommend/${id}`, query: {type: '1'}})   
+
       }
+
   },
   computed: {
     swiper() {
       return this.$refs.mySwiper.swiper;
-    }
+    },
+    getRecommend () {
+      return this.$store.state.recommend
+    },
+
   },
-  mounted() {
-      this.$http.get(`getRecommend`, {
-        params: {}
-      }).then((result) => {
-        var data = result.data
-        console.log(result);
-        this.topLists = data.response.focus.data.content
-      }).catch((err) => {
-        console.log(err);
-      })
+  mounted () {
+    console.log(this.getRecommend);
   }
+
 };
 </script>
 

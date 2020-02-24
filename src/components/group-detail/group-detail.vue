@@ -49,6 +49,7 @@ export default {
         return {
             groupInfo: this.getGroup,
             id: this.$route.params.id,
+            type: this.$route.query.type,
             songLists: [],
             cdLists: [],
             test:"message fom parent",
@@ -71,11 +72,26 @@ export default {
                 this.songLists = cdLists.songlist
                 console.log("res",this.songLists);
             }).catch((err) => {
-                    
+                
+            })
+        },
+        getAlbumInfo (albumId) {
+
+            this.$http.get(`getAlbumInfo`, {
+              params: {albummid: albumId}
+            })
+            .then(res => {
+                var data = res.response.data
+                this.cdLists = data.list
+                this.songList = cdLists
+            })
+            .catch(err => {
+                console.log(err);
             })
         }
     },
     computed: {
+
         getGroup () { 
             return  this.$store.getters.getGroupById(this.id)[0]
         },
@@ -84,17 +100,23 @@ export default {
         }
     },
     mounted() {
-        // console.log(this.getGroup);
+        
 
+        console.log(this.type);
+        console.log(this.id);
         Indicator.open({
             text: '加载中...',
             sninnerType: 'fading-circle'
         });
+        if(this.getGroup) {
+            console.log("这是在推荐个蛋里面有的");
+            this.groupInfo = this.getGroup
+            this.getGroupDetail(this.groupInfo.content_id);
+        }else  if(this.type == 1){
+            this.getAlbumInfo(this.id)
+        }
         
-        this.groupInfo = this.getGroup
-        // console.log(this.groupInfo);
         
-        this.getGroupDetail(this.groupInfo.content_id);
 
     },
     beforeDestroy() {

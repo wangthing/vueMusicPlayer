@@ -51,7 +51,7 @@
                                         <span class="left"><i class="iconfont icon-ting"></i>{{Math.floor(item.listen_num/1000)+'万'}} </span>
                                         <span class="right"><i class="iconfont icon-bofang"></i></span>
                                         </h1>
-                                    <img :src="item.cover" alt="">
+                                    <img v-lazy="item.cover" alt="">
                                 </div>
                                 <h1>{{item.title}}</h1>
                             </div>
@@ -104,7 +104,7 @@ export default {
         getRecommendList () {
             var recommend = this.$store.state.recommend
             if(recommend) {
-                this.recommendList = recommend.response.recomPlaylist.data.v_hot.slice
+                this.recommendList = recommend.response.recomPlaylist.data.v_hot
                 return;
             }
             this.$http.get(`getRecommend`, {
@@ -112,10 +112,10 @@ export default {
             })
             .then((res) => {
                 var data = res.data;
+                this.recommendList = data.response.recomPlaylist.data.v_hot
                 this.recommend = data;
                 this.$store.state.recommend  = data;
-                this.recommendList = data.response.recomPlaylist.data.v_hot
-                
+                console.log("加载好了推荐个蛋");
             })
             .catch((err) => {
                 alert(err.toString())
@@ -147,8 +147,7 @@ export default {
             })
         },
         goGroupDetail (id) {
-            this.$router.push({path: `/recommend/${id}`})
-            
+            this.$router.push({path: `/recommend/${id}`})   
         }
     },
     computed: {

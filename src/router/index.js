@@ -11,7 +11,7 @@ Router.prototype.push = function push(location) {
 // 首页四个页面
 // import first from '@/components/index/first'
 import recommend from '@/components/index/recommond'
-import ranking from '@/components/index/ranking'
+import ranking from '@/components/index/ranking/ranking'
 import my from '@/components/index/my'
 
 //歌单详情的组件

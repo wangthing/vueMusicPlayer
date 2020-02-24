@@ -127,6 +127,8 @@ export default {
 
     },
     mounted() {
+        console.log(document.getElementById('audio'));
+        this.$store.state.audio = document.getElementById('audio')
     },
 }
 </script>

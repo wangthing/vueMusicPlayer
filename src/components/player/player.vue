@@ -1,5 +1,5 @@
 <template>
-    <div class="player">
+    <div class="player" v-if="getNowPlaySong">
         <miniPlayer></miniPlayer>
         <Lyric> </Lyric>
     </div>
@@ -11,11 +11,21 @@ import Lyric from './lyric'
 export default {
     name: 'player',
     data () {
+        return {
 
+        }
     },
     components: {
         Lyric,
         miniPlayer
+    },
+    computed: {
+        showLyric () {
+            return this.$store.state.showLyric
+        },
+        getNowPlaySong () {
+            return this.$store.state.nowPlaySong
+        }
     }
 }
 </script>
