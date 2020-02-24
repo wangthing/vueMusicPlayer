@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
-    <keep-alive exclude="group">
+    <keep-alive exclude="group, rankingDetail">
       <router-view/>
     </keep-alive>
    

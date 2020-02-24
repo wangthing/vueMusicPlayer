@@ -34,7 +34,7 @@ export default {
     data() {
         return {
             songInfo: this.$store.state.nowPlaySong,
-              }
+            }
     },
     components: {
     },

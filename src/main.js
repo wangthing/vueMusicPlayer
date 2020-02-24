@@ -9,7 +9,7 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/index'
 import {Indicator } from 'mint-ui'
 
-axios.defaults.baseURL = "http://192.168.124.9:3200";
+axios.defaults.baseURL = "http://192.168.43.106:3200";
 
 Vue.prototype.$http = axios
 // Vue.use(VueAwesomeSwipre)
@@ -24,11 +24,10 @@ import store from '@/state/index'
 
 //路由守卫
 router.beforeEach((to, from, next) => {
-  console.log("from:",from);
-  console.log("to:",to);
-  if(from.name == null && to.path.lastIndexOf('/') != 0) {
+ 
+  if(from.name == null && to.path.lastIndexOf('/recommend') == -1) {
     console.log("不对劲");
-    router.back(1)
+    router.push('/')
   }
   next()
 })

@@ -15,5 +15,12 @@ export default{
         return state.recentlyPlayed.filter(item => {
             return item.track_info.id == id
         })
+    },
+    getTopListById: (state, getters) => (groupId, topId) => {
+        
+        if(state.recommend == null) return ;
+        return (state.recommend.response.toplist.data.group.filter(item => {
+            return item.groupId == groupId
+        }))[0].toplist.filter(item => item.topId == topId)[0]
     }
 }

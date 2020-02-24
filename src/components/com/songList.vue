@@ -4,7 +4,7 @@
            <!-- 定位 -->
            <a v-if="!!nowPlaySong" 
            class="iconfont icon-miaozhun location" 
-           :href=" nowPlaySong.track_info.id"
+           :href="nowPlaySong.track_info && nowPlaySong.track_info.id"
            @click.prevent="goLocation"
            ></a>
             <ul class="songs">
@@ -22,7 +22,7 @@
                             <i v-if="item.pay.pay_play" class="iconfont icon-vip"></i>
                             <i class="sq iconfont icon-sq"></i>
                             <i v-if="item.isonly" class="isonly iconfont icon-dujia"></i>
-                            {{item.singer[0].name}}<i style="font-weight:bold;color:black">·</i>{{item.album.name}}
+                            {{'' + item.singer[0].name}}<i style="font-weight:bold;">·</i>{{item.album.name}}
                         </span>
                     </div>
                     <span class="right"> 
@@ -44,12 +44,8 @@ export default {
         }
     },
     methods: {
-        goLocation (e) {
-          var id = this.nowPlaySong.track_info.id
-          document.getElementById(id).scrollIntoView({
-              behavior: "smooth"
-          })  
-        },
+        
+   
         // 接口说明: 调用此接口, 可获取歌曲相关信息 
         //songmid: 歌曲id
         //接口地址: /getSongInfo
@@ -99,14 +95,15 @@ export default {
               params: {songmid: mid}
             })
             .then(res => {
-                console.log(res);
                 var playList = res.data.response.playLists
+                console.log(playList);
+
                 this.$store.state.nowPlayUrl = playList[0]
             })
             .catch(err => {
                 console.log(err.toString());
             })
-        }
+        },
     },
     props:{
         songLists:{
@@ -116,7 +113,6 @@ export default {
     },
     computed: {
         nowPlaySong () {
-
             return this.$store.getters.getSongPlay
         },
 
@@ -156,6 +152,9 @@ export default {
             .item.playing
                 .content h1
                     color: $baseColor
+                    span
+                        display: flex
+                        align-items: center
                 border-left: .2rem solid $baseColor
                 &::after
                     width: 100vw

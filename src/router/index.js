@@ -16,7 +16,8 @@ import my from '@/components/index/my'
 
 //歌单详情的组件
 import group from '@/components/group-detail/group-detail'
-
+//排行榜详情页面
+import rankingDetail from '@/components/index/ranking/rankingDetail'
 Vue.use(Router)
 
 export default new Router({
@@ -58,5 +59,10 @@ export default new Router({
       name: 'group',
       component: group
     },
+    {
+      path: '/ranking/:id',
+      name:'rankingDetail',
+      component: rankingDetail
+    }
   ]
 })

@@ -7,5 +7,9 @@ export default{
     showLyric: false,       //是否显示歌词页面
     currentTime: 0,
     isStop: false,
-    audio: null
+    audio: null,
+    // 正在播放的歌单类型
+    // 0 没有 1表示歌单里面的 2表示是排行榜里面的
+    // nowPlayType: 0
+    // 这是排行榜里面的播放信息
 }

@@ -148,7 +148,7 @@ export default {
         getNowPlaySong () {
 
         },
-        songInfo () {
+        songInfo () {   
             return this.$store.state.nowPlaySong
         },
         audio () {

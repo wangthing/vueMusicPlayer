@@ -108,13 +108,11 @@ export default {
             text: '加载中...',
             sninnerType: 'fading-circle'
         });
-        if(this.getGroup) {
-            console.log("这是在推荐个蛋里面有的");
-            this.groupInfo = this.getGroup
-            this.getGroupDetail(this.groupInfo.content_id);
-        }else  if(this.type == 1){
-            this.getAlbumInfo(this.id)
-        }
+        
+        console.log("这是在推荐个蛋里面有的");
+        this.groupInfo = this.getGroup
+        this.getGroupDetail(this.groupInfo.content_id);
+        
         
         
 
