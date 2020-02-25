@@ -14,12 +14,14 @@
         </div>
         <div id="lyricwrap" class="lyric-wrap">
             <!-- :class="(getCurrentTimeFomated.length == 4 ? ('0' + getCurrentTimeFomated) : getCurrentTimeFomated) == getId(item) ? 'now' : ''" -->
-            <p v-for="(item, index) in lyric" 
+            <p  v-if="lyric.length"
+                v-for="(item, index) in lyric" 
                 :class="nowshowingLyric == getId(item) ? 'now' : ''"
                 :key="index"  @click = "jumpToHere">
                 {{item.split(']')[1]}} 
                 <i class='location' :id="getId(item)"></i> 
             </p>
+            <p>当前歌曲无法获取歌词</p>
         </div>
         <div class="action">
             <div class="progress">
@@ -82,6 +84,7 @@ export default {
                 console.log(this.lyric);
             })
             .catch(err => {
+                this.lyric = []
                 console.log(err);
             })
         },
@@ -212,7 +215,13 @@ export default {
             }
         }, 10)
         // 给歌词添加滚动监听
-        document.getElementById('lyricwrap').addEventListener('scroll', utils.throttle(this.onScroll, 300))
+        var lyric = document.getElementById('lyricwrap')
+        if(el) {
+            el.addEventListener('scroll', 
+            utils.throttle(this.onScroll, 300))
+            
+        }
+        
 
         this.getLyric(this.songInfo.track_info.id,this.songInfo.track_info.mid)
     },

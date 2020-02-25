@@ -171,6 +171,11 @@ export default {
                 margin-right: .5rem
                 border-radius: 50%
             .info
+                p
+                    text-overflow: ellipsis
+                    overflow: hidden
+                    white-space: nowrap
+
                 span 
                     font-size: 1.2rem
 

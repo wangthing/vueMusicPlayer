@@ -7,6 +7,7 @@
            :href="nowPlaySong.track_info && nowPlaySong.track_info.id"
            @click.prevent="goLocation"
            ></a>
+
             <ul class="songs">
                 <li class="item" :class=" (nowPlaySong == null) ? '' : (item.id ===   nowPlaySong.track_info.id ? 'playing' : '')" 
                  v-for="(item, index) in songLists" 
@@ -44,7 +45,20 @@ export default {
         }
     },
     methods: {
-        
+        goLocation (e) {
+            // console.log(this.nowPlaySong);
+          var id = this.nowPlaySong.track_info.id
+          var el = document.getElementById(id)
+          if(el) {
+
+            el.scrollIntoView({
+                behavior: "smooth"
+            }) 
+          } else {
+              Toast("当前页面没有定位到播放歌曲")
+          }
+          
+        },
    
         // 接口说明: 调用此接口, 可获取歌曲相关信息 
         //songmid: 歌曲id

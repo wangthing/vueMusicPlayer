@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
-    <keep-alive exclude="group, rankingDetail">
+    <keep-alive exclude="group, rankingDetail, singerInfo">
       <router-view/>
     </keep-alive>
    
@@ -46,7 +46,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* background-color: rgb(240, 245, 250);  */
   margin-bottom: 5rem;
 }
 </style>

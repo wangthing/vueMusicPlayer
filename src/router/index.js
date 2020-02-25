@@ -12,7 +12,9 @@ Router.prototype.push = function push(location) {
 // import first from '@/components/index/first'
 import recommend from '@/components/index/recommond'
 import ranking from '@/components/index/ranking/ranking'
-import my from '@/components/index/my'
+import singerList from '@/components/singer/singerList'
+import singerInfo from '@/components/singer/singerInfo'
+
 
 //歌单详情的组件
 import group from '@/components/group-detail/group-detail'
@@ -35,11 +37,11 @@ export default new Router({
       children: [
         
         
-        {
-          path: '/sad',
-          name: 'group',
-          component: group
-        }
+        // {
+        //   path: '/sad',
+        //   name: 'group',
+        //   component: group
+        // }
       ],
       
     },
@@ -49,11 +51,7 @@ export default new Router({
       name: 'ranking',
       component: ranking
     },
-    {
-      path: '/my',
-      name: 'my',
-      component: my
-    },
+    
     {
       path: '/recommend/:id',
       name: 'group',
@@ -63,6 +61,16 @@ export default new Router({
       path: '/ranking/:id',
       name:'rankingDetail',
       component: rankingDetail
+    },
+    {
+      path: '/singer',
+      name: 'singerList',
+      component: singerList
+    },
+    {
+      path: '/singer/:id',
+      name: 'singerInfo',
+      component: singerInfo
     }
   ]
 })

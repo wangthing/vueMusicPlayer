@@ -27,7 +27,7 @@
 
 
 <script>
-import vFooter from '@/components/footer/vfooter'
+import vFooter from '@/components/com/vfooter'
 export default {
     name:'activity',
     data () {

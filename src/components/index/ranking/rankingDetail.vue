@@ -76,7 +76,9 @@ export default {
             el.scrollIntoView({
                 behavior: "smooth"
             }) 
-          } 
+          } else {
+              Toast("当前页面没有定位到正在播放歌曲")
+          }
           
         },
         getRankingDetail (topId) {

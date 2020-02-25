@@ -81,7 +81,7 @@
 
 
 <script>
-import vFooter from '@/components/footer/vfooter'
+import vFooter from '@/components/com/vfooter'
 
 import topSearch from '@/components/com/top-search'
 import vSwiper from './swiper'
