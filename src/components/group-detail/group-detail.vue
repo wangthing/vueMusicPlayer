@@ -5,7 +5,7 @@
             <div class="info">
                  <div class="cover">
                      
-                     <span> <i class="iconfont icon-ting"></i> {{groupInfo?groupInfo.listen_num/100 + '万':'0'}}</span>
+                     <span> <i class="iconfont icon-ting"></i> {{groupInfo ? Math.floor(groupInfo.listen_num/1000) + '万':'0'}}</span>
                      <img :src="groupInfo&&groupInfo.cover" alt="">
                  </div>
                  <div class="des">
@@ -22,10 +22,10 @@
             </div>
             <div class="action">
                 <span>
-                    <i class="iconfont icon-xihuanzhengchangx"></i>23万
+                    <i class="iconfont icon-xihuanzhengchangx"></i>{{Math.floor(Math.random()*100) + 22}}万
                 </span>
                 <span>
-                <i class="iconfont icon-pinglun"></i>2536
+                <i class="iconfont icon-pinglun"></i>{{Math.floor(Math.random()*10000) + 1242}}
                 </span>
                 <span>
                 <i class="iconfont icon-fenxiang"></i>分享
@@ -102,8 +102,8 @@ export default {
     mounted() {
         
 
-        console.log(this.type);
-        console.log(this.id);
+        
+        
         Indicator.open({
             text: '加载中...',
             sninnerType: 'fading-circle'
@@ -112,6 +112,7 @@ export default {
         console.log("这是在推荐个蛋里面有的");
         this.groupInfo = this.getGroup
         this.getGroupDetail(this.groupInfo.content_id);
+        console.log(this.groupInfo);
         
         
         

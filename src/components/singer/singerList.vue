@@ -40,6 +40,20 @@
                     {{item.name}}</li>
                 </ul>
             </div>
+            <div class="index">
+                <ul class="tag" @click = "swichType">
+                    <li
+                    class="item"
+                    v-for="(item, index) in tags.index" 
+                    :key="index"
+                    :id = 'item.id'
+                    data-index = 2
+                    :class="(item.id == selectedId[2]) ? 'selected' : ''"
+                    >
+                    {{item.name}}</li>
+                </ul>
+                
+            </div>
         </div>
         <div class="lists">
             <div class="item" >
@@ -50,7 +64,7 @@
                     :key="index"
                     :data-id="item.singer_id"
                     :data-mid = 'item.singer_mid'
-                    @click="checkSinger(item.singer_id, item.singer_mid)"
+                    @click="checkSinger(item.singer_id, item.singer_mid, item.singer_pic)"
                     >
                    
                             <img v-lazy="item.singer_pic" alt="">   
@@ -61,11 +75,14 @@
             </div>
         </div>
         <vFooter></vFooter>
+        <!-- <a href="#" class="toBackTop iconfont icon-huidaodingbu"></a> -->
     </div>
 </template>
 
 <script>
 import vFooter from '@/components/com/vfooter'
+import {Indicator } from 'mint-ui'
+import {Toast } from 'mint-ui'
 
 export default {
     name: 'singerList',
@@ -74,7 +91,9 @@ export default {
             allSinger: null,
             singerByTag: null,
             tags: null,
-            selectedId: [200, 1, -100, -100]
+            selectedId: [200, 1, -100, -100],
+            total: 0,
+            page: 3
         }
     },
     components: {
@@ -83,28 +102,41 @@ export default {
     methods: {
         // 按照地区 流派 性别获取歌手信息，
         // 默认是-100
-        getSinger (area = this.selectedId[0], genre = this.selectedId[1], index = this.selectedId[2], sex = this.selectedId[3]) {
+        getSinger (area = this.selectedId[0], 
+        genre = this.selectedId[1], 
+        index = this.selectedId[2], 
+        sex = this.selectedId[3],
+        page = this.page) {
             this.$http.get(`getSingerList`, {
-              params: {area: area,sex: sex, index: index, genre: genre}
+              params: {area: area,sex: sex, index: index, genre: genre, page: page}
             })
             .then((res) => {
                 console.log(res); 
                 var data = res.data.response.singerList.data
+                this.total = data.total
+                console.log(this.total);
                 this.tags = data.tags
                 this.singerByTag = data.singerlist
+
+                Indicator.close()
             }).catch((err) => {
-                
+                Indicator.close()
+                Toast('加载失败！')
             })
         },
         swichType (e) {
+            if(e.target.nodeName.toLowerCase() == 'ul') {
+                console.log("点错了");
+                return
+            }
             var id = e.target.id;
             var index = e.target.dataset.index
             this.selectedId[index] = id
             console.log(this.selectedId);
             this.getSinger()
         },
-        checkSinger (id,mid) {
-            this.$router.push({path: `/singer/${id}`, query: {mid: mid}})
+        checkSinger (id, mid, pic) {
+            this.$router.push({path: `/singer/${id}`, query: {mid: mid, pic: pic}})
         }
         
     },
@@ -112,7 +144,10 @@ export default {
 
     },
     mounted () {
-        console.log("dasdasdasd");
+        Indicator.open({
+            text: '加载中...',
+            sninnerType: 'fading-circle'
+        });
         this.getSinger()
     }
 
@@ -122,8 +157,15 @@ export default {
 
 <style lang="sass" scoped>
     $baseColor: #31c27c;
-
+    .toBackTop
+        padding: 3rem
+        font-size: 3rem
+        position: fixed
+        right: 2rem
+        bottom: 2rem
     .main
+        scroll-behavior: smooth
+
         padding: 5rem 2rem 3rem
         .tags
             &>div

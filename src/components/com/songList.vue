@@ -7,7 +7,7 @@
            :href="nowPlaySong.track_info && nowPlaySong.track_info.id"
            @click.prevent="goLocation"
            ></a>
-
+            <h1 class="playAll"><i class="iconfont icon-bofang1"></i>  播放全部{{songLists && ` (${songLists.length})`}}</h1>
             <ul class="songs">
                 <li class="item" :class=" (nowPlaySong == null) ? '' : (item.id ===   nowPlaySong.track_info.id ? 'playing' : '')" 
                  v-for="(item, index) in songLists" 
@@ -161,7 +161,18 @@ export default {
     .song-list
         font-size: 1.5rem;
         color: black
-        
+        .playAll
+                
+            line-height: 2 
+            color: black
+            padding: 0 2rem
+            text-align: left
+            display: flex
+            align-items: center
+            i
+                color: $baseColor
+                font-size: 2.2rem 
+                margin-right: .4rem   
         .songs
             .item.playing
                 .content h1

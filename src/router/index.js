@@ -34,16 +34,7 @@ export default new Router({
       name: 'First',
       alias: '/',
       component: First,
-      children: [
-        
-        
-        // {
-        //   path: '/sad',
-        //   name: 'group',
-        //   component: group
-        // }
-      ],
-      
+      children: [], 
     },
     
     {

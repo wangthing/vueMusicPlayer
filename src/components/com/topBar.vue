@@ -24,6 +24,15 @@ export default {
             this.$router.back(-1)      
         }
     },
+    watch: {
+        
+        title : {
+            immediate: true, 
+            handler: function (newVal) {
+                // console.log(newVal);
+            }
+        }
+    }
 }
 </script>
 

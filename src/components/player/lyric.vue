@@ -9,7 +9,9 @@
             <span class="iconfont icon-screen-more hide" @click.stop="switchLyric"></span>
             <div class="title">
                 <h1 class="name">{{songInfo && songInfo.track_info.name}}</h1>
-                <h2 class="singer">{{songInfo && songInfo.track_info.singer[0].name}}</h2>
+                <h2 class="singer">
+                    {{songInfo && songInfo.track_info.singer[0].name}}
+                    {{songInfo && songInfo.track_info.singer[1] && ' & '+ songInfo.track_info.singer[1].name}}</h2>
             </div>
         </div>
         <div id="lyricwrap" class="lyric-wrap">
@@ -21,7 +23,7 @@
                 {{item.split(']')[1]}} 
                 <i class='location' :id="getId(item)"></i> 
             </p>
-            <p>当前歌曲无法获取歌词</p>
+            <p v-show="!lyric.length">当前歌曲无法获取歌词</p>
         </div>
         <div class="action">
             <div class="progress">
@@ -65,7 +67,8 @@ export default {
           return  (Math.floor(time/60)) +':'+ ( (Math.floor(time%60) >= 10) ?  (Math.floor(time%60)) : ('0'+Math.floor(time%60)) )
         },
         getId(item) {
-           return item.split(']')[0].split('[')[1].split('.')[0]
+            // console.log(item);split('[')[1].split('.')[0]
+           return item.split(']')[0].replace(/(\[)|(\.)/g,'').slice(0,5)
         },
         switchLyric () {
             this.$store.commit('switchLyric')
@@ -194,7 +197,7 @@ export default {
                 this.progressChange()
                 newVal = (newVal.length == 4 ? ('0' + newVal) : newVal)
                 var el = document.getElementById(newVal)
-                if(el ) {
+                if(el) {
                     this.nowshowingLyric = newVal
                     
                     if(!this.isDrag) {
@@ -216,8 +219,8 @@ export default {
         }, 10)
         // 给歌词添加滚动监听
         var lyric = document.getElementById('lyricwrap')
-        if(el) {
-            el.addEventListener('scroll', 
+        if(lyric) {
+            lyric.addEventListener('scroll', 
             utils.throttle(this.onScroll, 300))
             
         }
@@ -290,6 +293,7 @@ export default {
                     font-size: 1.4rem
         .lyric-wrap
             margin: 4rem 0 3rem
+            padding: 0 2.5rem
             height: 60% 
             overflow: auto
             font-size: 1.6rem
@@ -297,7 +301,7 @@ export default {
             line-height: 3
             padding-bottom: 20rem
             box-sizing: border-box
-
+            text-align: left
             // text-align: left
             &::-webkit-scrollbar
                 display: none
