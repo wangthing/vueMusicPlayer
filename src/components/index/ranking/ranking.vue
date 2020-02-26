@@ -29,7 +29,7 @@
 <script>
 import vFooter from '@/components/com/vfooter'
 export default {
-    name:'activity',
+    name:'ranking',
     data () {
         return {
 

@@ -11,7 +11,7 @@
                 <router-link to="singer">歌手</router-link>
             </li>
             <li id="my" class="search">
-               <i slot="icon" class="iconfont icon-sousuo"></i>
+               <i slot="icon" class="iconfont icon-sousuo" @click="goSearch"></i>
             </li>
             
         
@@ -29,7 +29,9 @@ export default {
         }
     },
     methods: {
-        
+        goSearch () {
+            this.$router.push('/search')
+        }
     }, 
     beforeRouteLeave (to, from, next) {
         console.log(to, from, next);

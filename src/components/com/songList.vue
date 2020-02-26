@@ -31,8 +31,7 @@
                         <i  class="more iconfont icon-gengduo "></i> </span>                    
                 </li>
             </ul>
-        </div> 
-    
+        </div>
 </template>
 
 <script>
@@ -122,7 +121,7 @@ export default {
     props:{
         songLists:{
             type:Array,
-            required: true
+            
         }
     },
     computed: {
@@ -165,7 +164,7 @@ export default {
                 
             line-height: 2 
             color: black
-            padding: 0 2rem
+            padding: 0 1rem
             text-align: left
             display: flex
             align-items: center

@@ -149,7 +149,7 @@ export default {
                 text-overflow: ellipsis
                 display: -webkit-box
                 -webkit-box-orient: vertical
-                -webkit-line-clamp: 4
+                -webkit-line-clamp: 5
                 &::-webkit-scrollbar
                     display: none
             img

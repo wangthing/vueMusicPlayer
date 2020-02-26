@@ -14,6 +14,8 @@ import recommend from '@/components/index/recommond'
 import ranking from '@/components/index/ranking/ranking'
 import singerList from '@/components/singer/singerList'
 import singerInfo from '@/components/singer/singerInfo'
+//搜索页面
+import search from '@/components/search/search' 
 
 
 //歌单详情的组件
@@ -62,6 +64,11 @@ export default new Router({
       path: '/singer/:id',
       name: 'singerInfo',
       component: singerInfo
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: search
     }
   ]
 })
