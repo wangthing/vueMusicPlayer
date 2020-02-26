@@ -1,5 +1,5 @@
 <template>
-    <div class="singerInfo" >
+    <div class="singerInfo"  v-if="songLists">
         <div class="top" >
             <div class="blur" :style="{backgroundImage: `url(${pic})`}"></div>
             <div class="singer">
@@ -16,20 +16,21 @@
                 <h1>MV: <span>{{data.total_mv}}</span></h1>
             </div>
         </div>
-        <songList :songLists="songList ? songList : []"></songList>
+        <songList :songLists="songLists ? songLists : []"></songList>
         <topBar :title="singerInfo ? singerInfo.name : ''"></topBar>
     </div>
 </template>
 
 <script>
 import { Toast } from 'mint-ui';
+import { Indicator } from 'mint-ui';
 import songList from '@/components/com/songList'
 import topBar from '@/components/com/topBar'
 export default {
     name: 'singerInfo',
     data() {
         return {
-            songList: null,
+            songLists: null,
             singerInfo: null,
             pic: '',
             data: null
@@ -44,6 +45,10 @@ export default {
     },
     methods: {
         getSingInfo (id, mid) {
+             Indicator.open({
+                text: '加载中...',
+                sninnerType: 'fading-circle'
+             });
             this.$http.get(`getSingerAlbum`, {
               params: {singermid: mid}
             })
@@ -52,10 +57,12 @@ export default {
                 var data = res.data.response.singer.data
                 this.data = data
                 this.singerInfo = data.singer_info
-                this.songList = data.songlist
+                this.songLists = data.songlist
+                Indicator.close()
                 
             }).catch((err) => {
-               
+                Indicator.close()
+                Toast('加载失败')               
             })
         },
         showMore (str) {
@@ -85,6 +92,9 @@ export default {
         }) 
 
         
+    },
+    destroyed () {
+            Indicator.close()
     }
 }
 </script>

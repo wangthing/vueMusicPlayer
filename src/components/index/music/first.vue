@@ -8,26 +8,28 @@
             <vSwiper/>
             <!-- 分类 -->
             <div class="classfy">
-                <span>
+                
+                <router-link class="link" to="/singer">
                     <i class="iconfont icon-geshou"></i>
                     歌手
-                </span>
-                <span>
+                </router-link>
+              
+                <router-link class="link" to="/ranking">
                     <i class="iconfont icon-paihang"></i>
                     排行
-                </span>
-                <span>
+                </router-link>
+                <router-link class="link" to="/singer">
                     <i class="iconfont icon-leimupinleifenleileibie"></i>
                     分类歌单
-                </span>
-                <span>
+                </router-link>
+                <router-link class="link" to="/singer">
                     <i class="iconfont icon-ziyuan"></i>
                     电台
-                </span>
-                <span>
+                </router-link>
+                <router-link class="link" to="/singer">
                     <i class="iconfont icon-tingge"></i>
                     一起听
-                </span>
+                </router-link>
             </div>
 
             <!-- 超热歌单 -->
@@ -197,7 +199,7 @@ export default {
             line-height: 1.8;
             margin: 1rem auto;
             justify-content: space-around;
-            span
+            .link
                 display: flex;
                 flex-direction: column;
                 i

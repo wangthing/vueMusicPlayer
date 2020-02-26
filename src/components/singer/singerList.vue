@@ -1,6 +1,6 @@
 <template>
-    <div class="main"  v-if="tags">
-        <div class="tags">
+    <div class="main" >
+        <div class="tags"  v-if="tags">
             <div class="area">
                 <ul class="tag" @click = "swichType">
                     <li 

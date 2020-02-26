@@ -1,7 +1,7 @@
 <template>
     <div class="ranking-detail"> 
         <div class="top">
-            <img :src="getTopList.frontPicUrl" alt="">
+            <img :src="getTopList.headPicUrl" alt="">
             <p class="visited">
                 <span class="left"><i class=""></i>{{getTopList.updateTime}} 更新</span>
             </p>
@@ -99,8 +99,9 @@ export default {
             if( this.nowPlaySong && songId === this.nowPlaySong.track_info.id) return;
             // 先判断这个id的歌是不是在最近播放里面获取过
             let isPlayed = this.$store.getters.getRecentlyPlayed(songId);
-            // console.log(isPlayed);
+            
             if(isPlayed.length) {
+                // 返回的是一个数组
                 let song = isPlayed[0]
                 console.log("已经播放了，去内存中取吧");
                 this.$store.commit('setNowPlay',{
@@ -108,10 +109,15 @@ export default {
                 })
                 this.getSongVkey(song.track_info.mid, songId)
                 return;
-            }   
+            } 
+            Indicator.open({
+                text: '正在缓冲...',
+                sninnerType: 'fading-circle'
+            });
             this.getAlbumInfo(songId,albumMid);
         },
-        // 由于排行榜的信息没有歌的mid，只能通过专辑id获取到专辑，再找到我们要播放的歌
+        // 由于排行榜的信息没有歌的mid，也没有歌曲是否付费的信息
+        // 只能通过专辑id获取到专辑，再找到我们要播放的歌
         getAlbumInfo (songId, albummid) {
             
             this.$http.get(`getAlbumInfo`, {
@@ -121,19 +127,21 @@ export default {
                 var data = res.data.response.data
                 var song = data.list.filter(item => item.songid == songId)[0]
                 console.log(song);
+                // 判断是不是付费的
                 var isPay = song.pay.payplay
                 if(isPay) {
                     Toast("这首歌是付费的，试试别的吧")
-
                     retutn;
                 }
                 var songMid = song.songmid
                 this.getSongInfo(songMid, songId)
             })
             .catch(err => {
+                Indicator.close()
                 console.log(err);
             })
         },
+        // 获取歌曲的播放信息
         getSongVkey (mid, id) {
             this.$http.get(`getMusicVKey`, {
               params: {songmid: mid}
@@ -170,7 +178,6 @@ export default {
         $route: {
             handler: function (to, from) {
                 if(to.name == 'rankingDetail') {
-                    console.log("来到了排行榜详情页面");
                     this.groupId = to.query.groupId
                     this.topId = to.params.id
                 }

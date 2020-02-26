@@ -2,7 +2,10 @@
     <div id="detail" data-content_id= "groupInfo.content_id">
         <topBar :title="title"></topBar>
         <header class="top">
+            <!-- :style="{backgroundImage:`url(${groupInfo&&groupInfo.cover})`}" -->
+            <div class="filter" ></div>
             <div class="info">
+                
                  <div class="cover">
                      
                      <span> <i class="iconfont icon-ting"></i> {{groupInfo ? Math.floor(groupInfo.listen_num/1000) + '万':'0'}}</span>
@@ -131,14 +134,26 @@ export default {
         width: 100%
         .top
             width: 100%
-            background-image: linear-gradient(rgba(10, 18, 100, .5), rgba(215, 21, 158,.8));
+            // background-image: linear-gradient(rgba(10, 18, 100, .5), rgba(215, 21, 158,.8));
             padding: 6rem 2.5rem 1rem;
             height: 22rem;
             box-sizing: border-box
+            position: relative
+            .filter
+                    position: absolute
+                    top: 0
+                    left: 0
+                    right: 0
+                    bottom: 0
+                    background-image: linear-gradient(45deg,rgb(55, 55, 55), rgb(145, 145, 145))
+                    
+                    
+                    z-index: -1
             .info
                 display: flex;
                 justify-content: space-between
-                
+                margin-top: 2rem
+
                 .des
                     padding: 0 2rem;
                     // flex: 1;

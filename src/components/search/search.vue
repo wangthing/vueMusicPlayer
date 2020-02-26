@@ -7,7 +7,23 @@
                 <input type="text" v-model="keyword" @focus="iptFocus" @input="iptChange" autofocus="true">
             </div>
         </div>
+        <div class="history" v-if="historyKeyword.length && !showResult && !showSmart" >
+
+            <div class="title">
+                <h1>历史搜索 </h1>
+                <i class="iconfont icon-qingkong" @click="deleteHistory"></i>
+            </div>
+            <ul class="historykey">
+                <li class="key"
+                    v-for="(item, index) in historyKeyword" :key="index"
+                    @click = "goSearch(item)"
+                >
+                {{ item }}
+                </li>
+            </ul>
+        </div>
         <div class="hotkey"  v-if="!showResult && !showSmart">
+
             <h1>热门搜索</h1>
             <ul class="keys">
                 <li class="key"
@@ -22,7 +38,7 @@
             </ul>
         </div>
         <div class="smart" v-if="showSmart">
-            <ul class="smartKeys" v-if="smartKeys.singer">
+            <ul class="smartKeys" v-if=" smartKeys && smartKeys.singer">
                 <h1 v-show="smartKeys.singer.itemlist.length">歌手</h1>
 
                 <li  class="keys singer"
@@ -36,21 +52,21 @@
                     <img v-lazy="item.pic" alt=""> <span>{{item.name}}</span>
                 </li>
             </ul>
-            <ul class="smartKeys" v-if="smartKeys.song">
+            <ul class="smartKeys" v-if="smartKeys && smartKeys.song">
                 <h1  v-show="smartKeys.singer.itemlist.length">单曲</h1>
                 <li class="keys song"
                     v-for="(item, index) in smartKeys.song.itemlist"
                      :key="index"
                      :data-mid = "item.mid"
                      :data-id = "item.id"
-                     @click="goSearch(keyword)"
+                     @click="goSearch(item.name)"
                 >
                     <i class="iconfont icon-sousuo"></i>
                     <span>{{item.name }} &nbsp;</span>
                      <span> {{item.singer}}</span>
                 </li>
             </ul>
-            <p>搜索{{ keyword }}</p>
+            <p class="searchAlone" @click="goSearch(keyword)">搜索"{{ keyword }}"</p>
         </div>
         <result 
             :showResult = "showResult"
@@ -74,7 +90,9 @@ export default {
             songLists: [],
             showResult: false,
             showSmart: false,
-            smartKeys: null   
+            smartKeys: null,
+            page: 1,
+            historyKeyword: JSON.parse(localStorage.getItem('_keyword'))
         }
     },
     components: {
@@ -94,20 +112,39 @@ export default {
                 
             })
         },
-        goSearch(key) {
+        goSearch(key = this.keyword, showSmart = true) {
+            // 本地缓存搜索历史
+            let _keyword = localStorage.getItem('_keyword')
+            if(_keyword == null) {
+                _keyword = [key]
+                this.historyKeyword = _keyword
+                localStorage.setItem('_keyword', JSON.stringify(_keyword))
+            } else {
+                var tmp = JSON.parse(_keyword)
+                tmp.unshift(key)
+                // 还需要去重
+                tmp = [...new Set(tmp)]
+                this.historyKeyword = tmp
+                localStorage.setItem('_keyword', JSON.stringify(tmp))
+            }
+           
+            
+
+             if(key == '') return
+             this.keyword = key
              this.showSmart = false
              this.showResult = true
              this.songLists.length = 0
              Indicator.open({
                 text: '加载中...',
                 sninnerType: 'fading-circle'
-            });
+             });
             this.$http.get(`getSearchByKey`, {
-              params: {key: key, limit: 50}
+              params: {key: key, limit: 30, page: this.page, catZhida: 3}
             })
             .then((res) => {
                 var data = res.data.response.data
-                this.keyword = data.keyword
+                
                 Indicator.close()
                 this.songLists = data.song.list
             }).catch((err) => {
@@ -139,15 +176,20 @@ export default {
         },
          checkSinger (id, mid, pic) {
             this.$router.push({path: `/singer/${id}`, query: {mid: mid, pic: pic}})
+        },
+        deleteHistory () {
+            localStorage.removeItem('_keyword')
+            this.historyKeyword = []
         }
     },
     computed: {
-
+         
     },
     watch:{
         keyword: {
             handler(newVal, old) {
-                if(newVal != old) {
+
+                if(newVal != old && !this.showResult) {
                     this.getSmartbox(newVal.trim())
                 }
             }
@@ -165,12 +207,14 @@ export default {
 <style lang="sass" scoped>
     $baseColor: #31c27c
     .search 
-        
+        font-size: 1.3rem
+        text-align: left
+        padding-bottom: 3rem
         h1
             font-size: 1.5rem
             font-weight: bold
             margin: 1rem 0  
-        font-size: 1.5rem
+        
         .top
             display: flex
             justify-content: flex-start
@@ -199,6 +243,25 @@ export default {
             &>span
                 padding: 1rem
 
+        .history 
+            padding: 0 1.5rem 
+            .title
+                display: flex
+                justify-content: space-between
+                align-items: center
+            .historykey
+                display: flex
+                flex-wrap: wrap
+                
+                text-align: left
+                .key
+                    min-width: 3rem
+                    text-align: center
+                    padding: .5rem .8rem
+                    background-color: white
+                    margin: 0 1rem 1rem 0
+                    border-radius: 1rem
+        
         .hotkey
             padding: 0 1.5rem 
             text-align: left
@@ -231,6 +294,10 @@ export default {
                 display: flex
                 justify-content: flex-start
                 align-items: center
+                font-size: 1.3rem
+                text-overflow: ellipsis
+                overflow: hidden
+                white-space: nowrap
                 &.singer
                     img
                         width: 3rem
@@ -242,5 +309,7 @@ export default {
                     i
                         color: $baseColor
                         margin-right: 2rem
-
+            .searchAlone
+                margin-top: 1rem
+                color: $baseColor
 </style>

@@ -13,7 +13,7 @@
                     :data-id="item.topId"
                     @click="goRankDetail(list.groupId,item.topId)"
                      >
-                        <img v-lazy="item.frontPicUrl" alt="">
+                        <img v-lazy="item.headPicUrl" alt="">
                         <p class="visited">
                             <span class="left"><i class="iconfont icon-ting"></i>{{Math.floor(item.listenNum/10000)+'万'}} </span>
                             <span class="right"><i class="iconfont icon-bofang"></i></span>
