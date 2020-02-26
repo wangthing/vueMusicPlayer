@@ -44,7 +44,7 @@
                 </li>
             </ul>
         </div> 
-        <topBar :title='songLists.title'></topBar>
+        <topBar :title="songLists && songLists.titleDetail " :name="'排行榜'"></topBar>
     </div>
 </template>
 
@@ -89,11 +89,15 @@ export default {
                 // 这是排行榜所有的歌曲
                 var data = res.data.response.detail.data.data
                 this.songLists = data
+                this.$store.commit('setNowPlayGroup', {
+                    group: this.songLists.song.slice(0,100)
+                })
                 Indicator.close()
             }).catch((err) => {
                 Indicator.close()                
             })
         },
+        // 切换歌曲
         switchSong (songId, albumMid) {
             // 这首歌已经在播放了
             if( this.nowPlaySong && songId === this.nowPlaySong.track_info.id) return;

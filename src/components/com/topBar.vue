@@ -1,7 +1,10 @@
 <template>
-    <div class="topBar" :style="{ backgroundImage: `linear-gradient(45deg,rgba(55, 55, 55, ${opacity}), rgba(145, 145, 145, ${opacity}))`}">
+    <div class="topBar"
+        :style="{  backgroundImage: `linear-gradient(90deg,rgba(${them.from[0]},${them.from[1]},${them.from[2]}, ${opacity}), rgba(${them.to[0]},${them.to[1]},${them.to[2]}, ${opacity} ))`}"
+    >
         <span class="iconfont icon-houtui back" @click="goBack"></span>
-        <span class="title" >{{title}}</span>
+        <span class="title" v-show="opacity < 0.3" >{{ name }}</span>
+        <span class="title" v-show="opacity > 0.3" :style='{opacity: opacity}' >{{title}}</span>
         <!-- <span class="iconfont icon-gengduo"></span> -->
     </div>
 </template>
@@ -20,7 +23,18 @@ export default {
     props:{
         title:{
             type: String
+        },
+        them: {
+            type: Object,
+            default: () => {
+                return {from:[35,35,35], to:[175,175,175]}
+            }
+        },
+        name : {
+            type: String,
+            default: '   '
         }
+        
     },
     methods: {
         goBack () {
@@ -29,8 +43,8 @@ export default {
         changeOpacity (e) {
             
             var scrollTop = document.documentElement.scrollTop
-            if( scrollTop <= 200  ) {
-                if(scrollTop < 50 ) {
+            if( scrollTop <= 300  ) {
+                if(scrollTop < 100 ) {
                     this.opacity = 0
                 }
                 this.opacity = ((scrollTop)/200).toFixed(3)
@@ -64,12 +78,12 @@ export default {
         top: 0
         left: 0
         right: 0
-        font-size: 1.5rem
+        font-size: 1.6rem
         color: white
         display: flex
         justify-content: center
         text-align: center
-        padding: 1rem 1rem
+        padding: 1.5rem 1rem
         
         .back
             position: absolute

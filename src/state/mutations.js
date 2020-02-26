@@ -7,6 +7,7 @@ export default {
         state.nowPlaySong = payload.song
         state.recentlyPlayed.push(payload.song)
         console.log(state.recentlyPlayed);
+        console.log(state.recentlyPlayed);
     },
     // 如果已经存在
     setNowPlay: (state, payload) => {
@@ -18,5 +19,9 @@ export default {
     },
     stopOrPlay (state, payload) {
         state.isStop = payload.value
+    },
+    setNowPlayGroup: (state, payload) => {
+        state.setNowPlayGroup = payload.group
+        console.log(payload.group);
     }
 }

@@ -1,5 +1,6 @@
 <template>
     <div class="search">
+        <!-- <p>dasdasdba1</p> -->
         <div class="top">
             <span class="iconfont icon-houtui" @click="back"></span>
             <div class="ipt">
@@ -7,6 +8,7 @@
                 <input type="text" v-model="keyword" @focus="iptFocus" @input="iptChange" autofocus="true">
             </div>
         </div>
+        <!-- 历史搜索记录 -->
         <div class="history" v-if="historyKeyword.length && !showResult && !showSmart" >
 
             <div class="title">
@@ -37,6 +39,7 @@
                 </li>
             </ul>
         </div>
+        <!-- 显智能提示 -->
         <div class="smart" v-if="showSmart">
             <ul class="smartKeys" v-if=" smartKeys && smartKeys.singer">
                 <h1 v-show="smartKeys.singer.itemlist.length">歌手</h1>
@@ -68,6 +71,7 @@
             </ul>
             <p class="searchAlone" @click="goSearch(keyword)">搜索"{{ keyword }}"</p>
         </div>
+        <!-- 结果展示组件 -->
         <result 
             :showResult = "showResult"
             :showSmart = "showSmart"

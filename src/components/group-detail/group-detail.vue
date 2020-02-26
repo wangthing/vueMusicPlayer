@@ -1,9 +1,12 @@
 <template>
     <div id="detail" data-content_id= "groupInfo.content_id">
-        <topBar :title="title"></topBar>
+        <topBar :name="'歌单'" :title="groupInfo && groupInfo.title" :them = 'them'></topBar>
         <header class="top">
             <!-- :style="{backgroundImage:`url(${groupInfo&&groupInfo.cover})`}" -->
-            <div class="filter" ></div>
+            <div class="filter"
+                   
+                :style="{  backgroundImage: `linear-gradient(135deg,rgb(${them.from[0]},${them.from[1]},${them.from[2]}), rgb(${them.to[0]},${them.to[1]},${them.to[2]} ))`}"
+             ></div>
             <div class="info">
                 
                  <div class="cover">
@@ -36,8 +39,8 @@
             </div>
         </header>
         <div class="main">
-            <songList :songLists="cdLists ? cdLists.songlist : []"> </songList>
-        </div>
+            <songList :songLists="cdLists ? cdLists.songlist : []" > </songList>
+        </div> 
     </div>
 </template>
 
@@ -56,7 +59,8 @@ export default {
             songLists: [],
             cdLists: [],
             test:"message fom parent",
-            title:"歌单"
+            title:"歌单",
+            them: this.$store.getters.getThem
         }
     },
     components:{
@@ -70,12 +74,16 @@ export default {
               params: {disstid: content_id}
             })
             .then((res) => {
-                Indicator.close();                
+                Indicator.close();              
+                console.log("dasdasd");  
                 this.cdLists = res.data.response.cdlist[0]
-                this.songLists = cdLists.songlist
-                console.log("res",this.songLists);
+                this.songLists = this.cdLists.songlist
+                // console.log("sdashdjhsdjas");
+                this.$store.commit('setNowPlayGroup', {
+                    group: this.songLists
+                })
             }).catch((err) => {
-                
+                console.log(err);
             })
         },
         getAlbumInfo (albumId) {
@@ -105,7 +113,7 @@ export default {
     mounted() {
         
 
-        
+        console.log(this.them);
         
         Indicator.open({
             text: '加载中...',
@@ -115,9 +123,7 @@ export default {
         console.log("这是在推荐个蛋里面有的");
         this.groupInfo = this.getGroup
         this.getGroupDetail(this.groupInfo.content_id);
-        console.log(this.groupInfo);
-        
-        
+        console.log(this.groupInfo); 
         
 
     },
@@ -145,7 +151,6 @@ export default {
                     left: 0
                     right: 0
                     bottom: 0
-                    background-image: linear-gradient(45deg,rgb(55, 55, 55), rgb(145, 145, 145))
                     
                     
                     z-index: -1

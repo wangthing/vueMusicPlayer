@@ -246,20 +246,20 @@ export default {
 
         position: fixed
         z-index: 99999
-        height: 0
+        height: 100vh
+        top: 100%
         left: 0
         right: 0
         background-color: #f2f3f4
-
         bottom: -100%
-        transition: all .5s
+        transition:  .5s
         .background
             z-index: -1
             position: absolute
             left: -200vw
             right: -200vw
             bottom: -100% 
-            top: -100%
+            top: 5rem
             filter: blur(18px)
             .blur
                 position: absolute
@@ -267,8 +267,11 @@ export default {
                 height: 100%
                 background-color: rgba(50, 50, 50, .3)
         &.show
-            height: 100%
+            // height: 100%
+            transform: translateY(-100%)
             bottom: 0
+            .background
+                top: -100%
         .top-bar
             line-height: 1.4
             padding: 1rem 2rem
@@ -276,6 +279,7 @@ export default {
             display: flex
             justify-content: flex-start
             align-items: flex-start
+            z-index: 5
             .hide   
                 font-size: 2.5rem 
                 position: absolute

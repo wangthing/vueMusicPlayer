@@ -1,15 +1,19 @@
 export default{
     recommend: null,        //首页推荐全部的
-    nowPlaySong:null,
+    nowPlaySong:null,       //正在播放的歌曲信息
     recentlyPlayed:[],      //最近播放的列表
     nowPlayGroup:[],        //正在播放的歌单列表
-    nowPlayUrl:[],          //正在播放的url
+    nowPlayUrl:[],          //正在播放的url，需要单独获取vkey接口才能获取到
     showLyric: false,       //是否显示歌词页面
     currentTime: 0,
-    isStop: false,
-    audio: null,
-    // 正在播放的歌单类型
-    // 0 没有 1表示歌单里面的 2表示是排行榜里面的
-    // nowPlayType: 0
+    isStop: false,          //播放器的状态
+    audio: null,            //播放器对象，用于全局切换
     // 这是排行榜里面的播放信息
+    // 主题渐变配色
+    backgroundTheme: [
+        {from:[45,45,45], to: [175,175,175]},
+        {from:[30,50,80], to: [90,135,205]},
+        {from:[55,40,25], to: [190,140,90]},
+        
+    ]
 }
