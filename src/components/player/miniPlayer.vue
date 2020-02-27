@@ -21,10 +21,14 @@
         </div>
         <div class="right">
             <i v-if="isStop" class=" iconfont icon-bofang1" @click.stop="StopOrStart">
-                <span class="isStop"></span>
+                <!-- <span class="isStop">
+                    <i class="left"></i>
+                </span> -->
             </i>
             <i v-if="!isStop" class=" iconfont icon-zantingtingzhi" @click.stop="StopOrStart">
-                <span class="isStop"></span>
+                <span class="isStop">
+
+                </span>
             </i>
             <i class="iconfont icon-bofangliebiao"></i>
         </div>
@@ -189,18 +193,21 @@ export default {
             width: 25vw;
             i
                 margin-left: 1rem
-                font-size: 2.5rem
+                font-size: 2.8rem
                 color: $baseColor
-                position: relative
-                .isStop
-                    position: absolute
-                    top: 10%
-                    left: 10%
-                    right: 10%
-                    bottom: 10%
+                // position: relative
+                // .isStop
+                    // position: absol  ute
+                    // top: -0.2rem
+                    // left: -0.2rem
+                    // right: -0.2rem
+                    // bottom: -0.2rem
+                    // border-radius: 50%
+                    // border: .2rem solid red
+                    // overflow: hidden
                     
-                    border-radius: 50%
-                    background-color: red
+                    
+                    // background-color: red
 
         .left
             width: 65vw

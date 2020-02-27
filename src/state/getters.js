@@ -25,5 +25,16 @@ export default{
     },
     getThem: (state) => () => {
         return state.backgroundTheme[Math.floor(Math.random()*(state.backgroundTheme.length))]
+    },
+    getGroupByCategoryById: (state, getters) => (id) => {
+        
+        console.log(state,"获取啊");
+        return (state.groupByCategory.filter( item => {
+            return item.dissid == id
+        }))[0]
+    },
+    getGroupByCategory: (state) => {
+        console.log(state.GroupByCategory);
+        return state.GroupByCategory
     }
 }

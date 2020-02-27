@@ -44,7 +44,10 @@
                 </li>
             </ul>
         </div> 
-        <topBar :title="songLists && songLists.titleDetail " :name="'排行榜'"></topBar>
+        <topBar :title="songLists && songLists.titleDetail " 
+        :name="'排行榜'"
+        :titleColor="'white'"
+        ></topBar>
     </div>
 </template>
 

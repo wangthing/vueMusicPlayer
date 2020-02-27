@@ -23,5 +23,9 @@ export default {
     setNowPlayGroup: (state, payload) => {
         state.setNowPlayGroup = payload.group
         console.log(payload.group);
+    },
+    addGroupByCategory (state, payload) {
+        state.groupByCategory = state.groupByCategory.concat(payload.list)
+        console.log(state.groupByCategory);
     }
 }

@@ -9,7 +9,7 @@
             </div>
         </div>
         <!-- 历史搜索记录 -->
-        <div class="history" v-if="historyKeyword.length && !showResult && !showSmart" >
+        <div class="history" v-if="historyKeyword && !showResult && !showSmart" >
 
             <div class="title">
                 <h1>历史搜索 </h1>
@@ -24,13 +24,14 @@
                 </li>
             </ul>
         </div>
+        <!-- 热门搜索显示 -->
         <div class="hotkey"  v-if="!showResult && !showSmart">
 
             <h1>热门搜索</h1>
             <ul class="keys">
                 <li class="key"
                     v-for="(item, index) in hotkey" :key="index"
-                    @click = "goSearch(item.k)"
+                    @click = "getSmartbox(item.k)"
                 >
                 <span class="index"
                     :class="index < 3 ? 'hot' :' ' "
@@ -165,6 +166,8 @@ export default {
             
         },
         getSmartbox (key) {
+            // 根据输入框输入实时获取只能匹配结果
+            this.keyword = key
             this.showSmart = true
             if(key == '') this.showSmart = false;
             this.$http.get(`getSmartbox`, {
@@ -207,6 +210,16 @@ export default {
     }
 }
 </script>
+
+
+
+
+
+
+
+
+
+
 
 <style lang="sass" scoped>
     $baseColor: #31c27c

@@ -18,7 +18,7 @@
                     <i class="iconfont icon-paihang"></i>
                     排行
                 </router-link>
-                <router-link class="link" to="/singer">
+                <router-link class="link" to="/allGroup">
                     <i class="iconfont icon-leimupinleifenleileibie"></i>
                     分类歌单
                 </router-link>

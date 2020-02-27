@@ -1,11 +1,18 @@
 <template>
-    <div class="topBar"
-        :style="{  backgroundImage: `linear-gradient(90deg,rgba(${them.from[0]},${them.from[1]},${them.from[2]}, ${opacity}), rgba(${them.to[0]},${them.to[1]},${them.to[2]}, ${opacity} ))`}"
-    >
-        <span class="iconfont icon-houtui back" @click="goBack"></span>
-        <span class="title" v-show="opacity < 0.3" >{{ name }}</span>
-        <span class="title" v-show="opacity > 0.3" :style='{opacity: opacity}' >{{title}}</span>
-        <!-- <span class="iconfont icon-gengduo"></span> -->
+    <div class="father" :class="!isOpacity ? 'normal' : ''">
+            <div class="topBar"
+               :style="{  
+                backgroundImage: 
+                `linear-gradient(90deg,rgba(${them.from[0]},${them.from[1]},${them.from[2]}, 
+                ${opacity}), rgba(${them.to[0]},${them.to[1]},${them.to[2]}, ${opacity} ))`,
+                color:titleColor,}"
+                
+            >
+            <span class="iconfont icon-houtui back" @click="goBack"></span>
+            <span class="title" v-show="opacity < 0.3" >{{ name }}</span>
+            <span class="title" v-show="opacity > 0.3" :style='{opacity: opacity}' >{{title}}</span>
+            <!-- <span class="iconfont icon-gengduo"></span> -->
+        </div>
     </div>
 </template>
 
@@ -33,6 +40,15 @@ export default {
         name : {
             type: String,
             default: '   '
+        },
+        titleColor : {
+            type: String,
+            default: 'black'
+        },
+        // 需不需要透明顶部不遮挡  false的话就固定高度  不会透明
+        isOpacity: {
+            type: Boolean,
+            default: true
         }
         
     },
@@ -43,11 +59,13 @@ export default {
         changeOpacity (e) {
             
             var scrollTop = document.documentElement.scrollTop
-            if( scrollTop <= 300  ) {
-                if(scrollTop < 100 ) {
+            if( scrollTop <= 400 ) {
+                if( scrollTop < 100  ) {
                     this.opacity = 0
+                } else {
+                    this.opacity = ((scrollTop)/200).toFixed(3)
                 }
-                this.opacity = ((scrollTop)/200).toFixed(3)
+                
             }else {
                 this.opacity = 1
             }
@@ -56,14 +74,19 @@ export default {
         }
     },
     mounted () {
-        window.addEventListener('scroll',  utils.throttle(this.changeOpacity, 50))
+        if(this.isOpacity) {
+            window.addEventListener('scroll',  utils.throttle(this.changeOpacity, 50))
+        }
     },
     watch: {
         
-        title : {
+        isOpacity : {
             immediate: true, 
             handler: function (newVal) {
-                // console.log(newVal);
+                if(newVal == false) {
+                    this.opacity = 1
+                    window.removeEventListener('scroll',() => {})
+                }
             }
         }
     }
@@ -72,18 +95,31 @@ export default {
 
 
 <style lang="sass" scoped>
+.father 
+    height: 4rem   
+    position: absolute 
+    &.normal
+        overflow: hidden;
+        position: relative
+        height: 4rem
+    
     .topBar
+        // transform: translateX(100%)
+        height: 4rem
+        box-sizing: border-box
         position: fixed;
-        z-index: 999
+        z-index: 9999
         top: 0
         left: 0
         right: 0
         font-size: 1.6rem
+        // line-height: 1.2
         color: white
         display: flex
         justify-content: center
         text-align: center
-        padding: 1.5rem 1rem
+        padding: 1.5rem .5rem
+        overflow: hidden
         
         .back
             position: absolute

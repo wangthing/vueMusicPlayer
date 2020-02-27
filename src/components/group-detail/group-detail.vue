@@ -1,27 +1,30 @@
 <template>
     <div id="detail" data-content_id= "groupInfo.content_id">
-        <topBar :name="'歌单'" :title="groupInfo && groupInfo.title" :them = 'them'></topBar>
-        <header class="top">
+        <topBar :name="'歌单'" :title="cdLists && cdLists.dissname" 
+        :them = 'them'
+        :titleColor="'white'"
+        ></topBar>
+        <header class="top" >
             <!-- :style="{backgroundImage:`url(${groupInfo&&groupInfo.cover})`}" -->
             <div class="filter"
-                   
-                :style="{  backgroundImage: `linear-gradient(135deg,rgb(${them.from[0]},${them.from[1]},${them.from[2]}), rgb(${them.to[0]},${them.to[1]},${them.to[2]} ))`}"
+                v-if="!!them"
+                :style="{backgroundImage: `linear-gradient(135deg,rgb(${them.from[0]},${them.from[1]},${them.from[2]}), rgb(${them.to[0]},${them.to[1]},${them.to[2]} ))`}"
              ></div>
             <div class="info">
                 
                  <div class="cover">
                      
-                     <span> <i class="iconfont icon-ting"></i> {{groupInfo ? Math.floor(groupInfo.listen_num/1000) + '万':'0'}}</span>
-                     <img :src="groupInfo&&groupInfo.cover" alt="">
+                     <span> <i class="iconfont icon-ting"></i> {{cdLists.visitnum ? Math.floor(cdLists.visitnum/1000) + '万':'0'}}</span>
+                     <img :src="cdLists && cdLists.logo" alt="">
                  </div>
                  <div class="des">
-                     <h1>{{groupInfo ? groupInfo.title : ''}}</h1>
+                     <h1>{{cdLists ? cdLists.dissname : ''}}</h1>
                      <div class="author">
                          <img :src="cdLists.headurl" class="avatar" alt="">
                          <span>{{cdLists.nickname}}</span>
                      </div>
                      <h1 class="desc">
-                         <span>{{'简介：'+cdLists.desc}}</span>
+                         <span>{{'简介：'+cdLists && cdLists.desc }}</span>
                          <i class="iconfont icon-arrow-right"></i>
                      </h1>
                  </div>
@@ -60,7 +63,7 @@ export default {
             cdLists: [],
             test:"message fom parent",
             title:"歌单",
-            them: this.$store.getters.getThem
+            
         }
     },
     components:{
@@ -104,27 +107,29 @@ export default {
     computed: {
 
         getGroup () { 
-            return  this.$store.getters.getGroupById(this.id)[0]
+            return  this.$store.getters.getGroupById(this.id)
         },
         getSongLists () {
             return this.cdLists.songlist
+        },
+        getGroupByCategoryById () {
+             return  this.$store.getters.getGroupByCategoryById(this.id)
+        },
+        them () {
+            return this.$store.getters.getThem()
         }
     },
     mounted() {
         
-        this.them = this.$store.getters.getThem()
+        console.log(this.them);
         console.log("重新加载了吗");
         
         Indicator.open({
             text: '加载中...',
             sninnerType: 'fading-circle'
         });
-        
-        console.log("这是在推荐个蛋里面有的");
-        this.groupInfo = this.getGroup
-        this.getGroupDetail(this.groupInfo.content_id);
-        console.log(this.groupInfo); 
-        
+
+         this.getGroupDetail(this.id);
 
     },
     beforeDestroy() {

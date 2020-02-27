@@ -17,7 +17,8 @@ import singerInfo from '@/components/singer/singerInfo'
 //搜索页面
 import search from '@/components/search/search' 
 
-
+// 所有歌单分类
+import allGroup from '@/components/group-detail/all-group'
 //歌单详情的组件
 import group from '@/components/group-detail/group-detail'
 //排行榜详情页面
@@ -69,6 +70,11 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: search
+    },
+    {
+      path: '/allGroup',
+      name: 'allGroup',
+      component: allGroup
     }
   ]
 })
