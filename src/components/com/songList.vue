@@ -100,7 +100,7 @@ export default {
                 this.getSongVkey(mid, id)
                 // 同时还要获取音乐的vkey和播放链接
             }).catch((err) => {
-                
+                console.log(err);
             })
         },
         getSongVkey (mid, id) {

@@ -302,7 +302,7 @@ export default {
             overflow: auto
             font-size: 1.6rem
             color: #f1f2f3
-            line-height: 3
+            line-height: 2.5
             padding-bottom: 20rem
             box-sizing: border-box
             text-align: left
@@ -314,11 +314,12 @@ export default {
                 .location
                     font-size: 0
                     position: relative
-                    top: -20rem                
+                    top: -15rem                
             .now
-                background-image: linear-gradient(90deg, red  , blue )
+                // [45,45,45], to: [175,175,175]
+                background-image: linear-gradient(90deg, rgb(10, 10, 60)  , rgb(40, 45, 190) )
                 opacity: 0.5
-                font-size: 2rem
+                font-size: 1.8rem
                 font-weight: bold
                 color: transparent
                 // background-position: 0
@@ -326,6 +327,9 @@ export default {
                 // background-clip: text
                 // color: red
         .action
+            position: absolute
+            bottom: 2rem
+            width: 100%
             .progress
                 padding: 1rem 4rem
                 .progress-bar
@@ -357,8 +361,7 @@ export default {
                 display: flex
                 justify-content: space-around
                 align-items: center
-                position: absolute
-                bottom: 2rem
+
                 width: 100%
                 .stop-play
                     font-size: 4rem

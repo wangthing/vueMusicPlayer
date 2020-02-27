@@ -9,7 +9,7 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/index'
 import {Indicator } from 'mint-ui'
 
-axios.defaults.baseURL = "http://192.168.124.9:3200";
+axios.defaults.baseURL = "http://192.168.43.106:3200";
 
 Vue.prototype.$http = axios
 // Vue.use(VueAwesomeSwipre)
