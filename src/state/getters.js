@@ -23,7 +23,7 @@ export default{
             return item.groupId == groupId
         }))[0].toplist.filter(item => item.topId == topId)[0]
     },
-    getThem (state) {
+    getThem: (state) => () => {
         return state.backgroundTheme[Math.floor(Math.random()*(state.backgroundTheme.length))]
     }
 }

@@ -112,8 +112,8 @@ export default {
     },
     mounted() {
         
-
-        console.log(this.them);
+        this.them = this.$store.getters.getThem()
+        console.log("重新加载了吗");
         
         Indicator.open({
             text: '加载中...',
