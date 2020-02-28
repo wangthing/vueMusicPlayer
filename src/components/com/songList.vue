@@ -128,7 +128,7 @@ export default {
         },
         groupId: {
             type: String,
-            default: '666'
+            default: '6666'
         }
     },
     computed: {
@@ -143,6 +143,14 @@ export default {
                 id: this.groupId
         })
     },
+    updated () {
+        
+        this.$store.commit('setNowPlayGroup', {
+                // 默认是历史歌单
+                group: this.$store.state.recentlyPlayed,
+                id: this.groupId
+        })
+    },
     watch: {
         songLists : {
             handler (newVal) {
@@ -152,7 +160,9 @@ export default {
                     group: newVal,
                     id: this.groupId
                 })
-            }
+            },
+            deep: true,
+            immediate: true, 
         }
     },
 

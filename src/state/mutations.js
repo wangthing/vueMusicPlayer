@@ -1,4 +1,4 @@
-import { stat } from "fs";
+
 
 export default {
     // 当第一次播放这首歌时，将这首歌存在recentlyPlayed数组，并存放在本地缓存中
@@ -68,6 +68,7 @@ export default {
 
         if(!state.nowPlayGroup.get(payload.id)) {
             state.nowPlayGroup.set(payload.id,payload.group)
+            state.nowPlayId = payload.id
         }
         
         console.log(state.nowPlayGroup);

@@ -42,8 +42,8 @@
                 <span class="iconfont icon-SanMiAppglyphico" ></span>
                 <!-- <span class="iconfont "></span> -->
                 <span class="iconfont stop-play" @click = "stopOrPlay" :class="!isStop ?  'icon-zhongzhi' : 'icon-bofang'"></span>
-                <span class="iconfont icon-SanMiAppglyphico1"></span>
-                <span class="iconfont icon-shoucang"></span>
+                <span class="iconfont icon-SanMiAppglyphico1" @click="nextSong"></span>
+                <span class="iconfont icon-shoucang" > </span>
                 <!-- <span class="iconfont icon-shoucang"></span> -->
             </div>
         </div>
@@ -144,6 +144,9 @@ export default {
                 this.isDrag = false
             }, 2500);
             
+        },
+        nextSong () {
+            console.log(this.getNowPlayGroup);
         }
     },
     computed: {
@@ -158,7 +161,7 @@ export default {
         },
         audio () {
 
-                return  this.$store.state.audio
+            return  this.$store.state.audio
         },
         getCurrentTimeFomated () {
             return this.returnTime(this.getCurrentTime)
@@ -177,7 +180,14 @@ export default {
         },
         isStop (){
             return this.$store.state.isStop
-        } 
+        },
+        // 获取现在播放的歌单
+        getNowPlayGroup () {
+            return this.$store.getters.getNowPlayGroup.get(this.getNowPlayId)
+        },
+        getNowPlayId () {
+            return this.$store.state.nowPlayId
+        }
     },
     watch: {
         songInfo: {

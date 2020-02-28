@@ -2,7 +2,7 @@
     <div class="lists" id="wrap" @click="hide" :class= "isShow ? 'show' : ''" w-if="getNowPlayId">
         
         <div class="content" @click.stop="clickContent">
-            <p class="action">循环播放</p>
+            <p class="action"> <i style="color: #31c27c" class="iconfont icon-bofang1"></i> 播放全部 ({{ getNowPlayGroup && getNowPlayGroup.length  }})</p>
             <ul class="songs" v-if = "getNowPlayId && getNowPlayId.length > 3 || isNaN(getNowPlayId)"> 
                 <li class="item" v-for="(item, index) in getNowPlayGroup"
                  :key="index" 
@@ -138,7 +138,7 @@ export default {
                 text: '正在缓冲...',
                 sninnerType: 'fading-circle'
             });
-            
+           
             this.getAlbumInfo(songId,albumMid);
         },
         // 由于排行榜的信息没有歌的mid，也没有歌曲是否付费的信息
@@ -154,7 +154,7 @@ export default {
                 var song = data.list.filter(item => item.songid == songId)[0]
                 console.log(song);
                 // 判断是不是付费的
-                var isPay = song.pay.payplay
+                var isPay = song.pay.pay_play
                 if(isPay) {
                     Toast("这首歌是付费的，试试别的吧")
                     return;
@@ -164,7 +164,7 @@ export default {
             })
             .catch(err => {
                 Indicator.close()
-                console.log(err);
+                alert("不好意思，无法播放这首歌")
             })
         },
         getSongInfo (mid, id) {

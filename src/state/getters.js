@@ -41,6 +41,10 @@ export default{
         console.log(state.GroupByCategory);
         return state.GroupByCategory
     },
+    // 获取现在正在播放的歌单
+    getNowPlayGroup (state) {
+        return state.nowPlayGroup
+    }
     
 }
 
