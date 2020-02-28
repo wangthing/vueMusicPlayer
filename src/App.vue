@@ -1,14 +1,17 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
-    <keep-alive exclude="group, rankingDetail, singerInfo">
+    <keep-alive exclude="group, rankingDetail, singerInfo, history">
       <router-view/>
     </keep-alive>
    
       <!-- <Lyric></Lyric> -->
       
+    <keep-alive>
+      <Player></Player>
+      <playList></playList>
+    </keep-alive>
     
-    <Player></Player>
   </div>
 </template>
 
@@ -16,6 +19,7 @@
 
 
 import Player from '@/components/player/player'
+import playList from '@/components/my/playList'
 export default {
   name: 'App',
   data() {
@@ -24,14 +28,14 @@ export default {
     }
   },
   components: {
-    
+    playList,
     Player
   },
   created () {
-    this.$router.repa
+    // this.$router.repa
   },
   destroyed() {
-    window.removeEventListener('beforeunload')
+    // window.removeEventListener('beforeunload')
   },
 
 }

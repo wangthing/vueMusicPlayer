@@ -15,7 +15,9 @@ import ranking from '@/components/index/ranking/ranking'
 import singerList from '@/components/singer/singerList'
 import singerInfo from '@/components/singer/singerInfo'
 //搜索页面
-import search from '@/components/search/search' 
+import search from '@/components/search/search'
+// 历史播放记录
+import history from '@/components/my/history' 
 
 // 所有歌单分类
 import allGroup from '@/components/group-detail/all-group'
@@ -47,7 +49,7 @@ export default new Router({
     },
     
     {
-      path: '/recommend/:id',
+      path: '/group/:id',
       name: 'group',
       component: group
     },
@@ -75,6 +77,14 @@ export default new Router({
       path: '/allGroup',
       name: 'allGroup',
       component: allGroup
+    },
+    {
+      path: '/history',
+      name: 'history',
+      component: history,
+      meta: {
+        keepAlive: false // 不需要缓存
+      }
     }
   ]
 })

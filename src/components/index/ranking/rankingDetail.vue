@@ -8,7 +8,7 @@
         </div>
         <!-- <songList :songLists="cdLists ? cdLists.songlist : ''"></songList> -->
         <!-- 展示歌曲列表页面 -->
-        <div class="song-list">
+        <div class="song-list" v-if="songLists">
            <!-- 定位 -->
            <a v-if="!!nowPlaySong" 
            class="iconfont icon-miaozhun location" 
@@ -93,7 +93,8 @@ export default {
                 var data = res.data.response.detail.data.data
                 this.songLists = data
                 this.$store.commit('setNowPlayGroup', {
-                    group: this.songLists.song.slice(0,100)
+                    group: this.songLists.song.slice(0,100),
+                    id: this.topId
                 })
                 Indicator.close()
             }).catch((err) => {

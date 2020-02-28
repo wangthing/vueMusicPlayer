@@ -40,7 +40,7 @@ export default {
     name: 'songList',
     data() {
         return {
-
+            id: 0
         }
     },
     methods: {
@@ -75,6 +75,8 @@ export default {
             }
             // 这首歌已经在播放了
             if( this.nowPlaySong && id === this.nowPlaySong.track_info.id) return;
+            // 正在播放的id变成这个歌单的id
+            this.$store.state.nowPlayId = this.groupId
             // 先判断这个id的歌是不是在最近播放里面获取过
             let isPlayed = this.$store.getters.getRecentlyPlayed(id);
             // console.log(isPlayed);
@@ -121,15 +123,26 @@ export default {
     props:{
         songLists:{
             type:Array,
-            
+        },
+        groupId: {
+            type: String
         }
     },
     computed: {
         nowPlaySong () {
             return this.$store.getters.getSongPlay
-        },
-
-        
+        }, 
+    },
+    watch: {
+        songLists : {
+            handler (newVal) {
+                console.log(newVal);
+                this.$store.commit('setNowPlayGroup', {
+                    group: newVal,
+                    id: this.groupId
+                })
+            }
+        }
     },
 
     created () {

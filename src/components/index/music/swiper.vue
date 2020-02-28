@@ -1,6 +1,6 @@
 <template>
   <div class="main" v-if="getRecommend">
-    
+
       <mt-swipe :auto="4000" class="swiper" @change="imgChange">
         <mt-swipe-item class="swiper-item"  
         v-for="(item,index) in getRecommend.response.focus.data.content" 
@@ -73,15 +73,11 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-// @                         imgSwiper {
-//     0% {left: 0px}
-//     33.3% {left: 33.3%}
-//     66.6% {left: 66.6%}
-//     100% {left: 100%}
-// }
+
 .main
     height: 14rem;    
     box-sizing: border-box;
+
 
     .swiper
     //    width: 100%;

@@ -22,13 +22,13 @@
                     <i class="iconfont icon-leimupinleifenleileibie"></i>
                     分类歌单
                 </router-link>
-                <router-link class="link" to="/singer">
-                    <i class="iconfont icon-ziyuan"></i>
-                    电台
+                <router-link class="link" to="/history">
+                    <i class="iconfont icon-zuijin"></i>
+                    最近
                 </router-link>
-                <router-link class="link" to="/singer">
-                    <i class="iconfont icon-tingge"></i>
-                    一起听
+                <router-link class="link" to="/like">
+                    <i class="iconfont icon-yishoucang"></i>
+                    收藏
                 </router-link>
             </div>
 
@@ -69,8 +69,11 @@
                 </h1>
                 <div class="wrap">
                     <ul class="mv-list">
-                        <li class="mv-item" v-for="(item, index) in MV" :key="index"> 
-                            <img :src="item.picurl" alt="" >
+                        <li class="mv-item" v-for="(item, index) in MV"
+                         :key="index"
+                         @click="showMv"
+                         > 
+                            <img v-lazy="item.picurl" alt="" >
                             <p class="title">{{item.mvdesc}}</p>
                         </li>
 
@@ -85,7 +88,7 @@
 <script>
 
 import vFooter from '@/components/com/vfooter'
-
+import {Toast} from 'mint-ui'
 import topSearch from '@/components/com/top-search'
 import vSwiper from './swiper'
 export default {
@@ -150,7 +153,10 @@ export default {
             })
         },
         goGroupDetail (id) {
-            this.$router.push({path: `/recommend/${id}`})   
+            this.$router.push({path: `/group/${id}`})   
+        },
+        showMv () {
+            Toast("暂不支持播放MV")
         }
     },
     computed: {

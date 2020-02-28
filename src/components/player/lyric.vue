@@ -43,7 +43,8 @@
                 <!-- <span class="iconfont "></span> -->
                 <span class="iconfont stop-play" @click = "stopOrPlay" :class="!isStop ?  'icon-zhongzhi' : 'icon-bofang'"></span>
                 <span class="iconfont icon-SanMiAppglyphico1"></span>
-                <span class="iconfont icon-bofangliebiao"></span>
+                <span class="iconfont icon-shoucang"></span>
+                <!-- <span class="iconfont icon-shoucang"></span> -->
             </div>
         </div>
     </div>

@@ -17,7 +17,9 @@
             </div>
         </div>
         <songList :songLists="songLists ? songLists : []"></songList>
-        <topBar :title="singerInfo ? singerInfo.name : ''"></topBar>
+        <topBar :title="singerInfo ? singerInfo.name : ''"
+                :titleColor = "'white'"
+        ></topBar>
     </div>
 </template>
 

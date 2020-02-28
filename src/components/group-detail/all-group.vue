@@ -59,7 +59,7 @@ export default {
         return {
             allCategory: null,
             nowCategory: 0,
-            groupList : [],
+            groupList : new Array(20),
             checkType: 0,
             page: 1
         }
@@ -97,8 +97,8 @@ export default {
             })
             .then((res) => {
                 console.log(res);
-
                 this.groupList.splice(index, 1, res.data.response.data.list)
+            
                 // this.$store.commit('addGroupByCategory',{
                 //     list: this.groupList[index]
                 // })
@@ -108,7 +108,7 @@ export default {
             })
         },
         goGroupDetail (id) {
-            this.$router.push({path: `/recommend/${id}`})   
+            this.$router.push({path: `/group/${id}`})   
         }
     },
     computed: {
@@ -131,7 +131,7 @@ export default {
         font-size: 1.2rem
         .category
             z-index: 100
-            height: 4rem 
+            height: 4.5rem 
             overflow: hidden
             position: relative
             // background-color: red

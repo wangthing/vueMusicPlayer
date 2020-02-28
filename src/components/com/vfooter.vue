@@ -48,7 +48,7 @@ export default {
         padding: auto 0;
         position: fixed;
         z-index: 9999
-        background-color: white;
+        background-color: rgb(245, 250, 255);
         margin: 0
         top: 0;
         left: 0;

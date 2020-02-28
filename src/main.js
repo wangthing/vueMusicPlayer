@@ -9,14 +9,14 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/index'
 import {Indicator } from 'mint-ui'
 
-axios.defaults.baseURL = "http://192.168.43.106:3200";
+axios.defaults.baseURL = "http://192.168.124.9:3200";
 
 Vue.prototype.$http = axios
 // Vue.use(VueAwesomeSwipre)
 Vue.use(MintUI)
 import  vueLazyload from 'vue-lazyload'
 Vue.use(vueLazyload,{
-  error: './static/fail.png',
+  error: './static/fail1.png',
   loading: 'https://y.gtimg.cn/mediastyle/global/img/album_300.png?max_age=31536000'
 })
 import store from '@/state/index'
@@ -24,9 +24,14 @@ import store from '@/state/index'
 
 //路由守卫
 router.beforeEach((to, from, next) => {
-  console.log(to);
-  
+  // 路由改变了就隐藏歌词
+  if(store.state.showLyric) {
+
+     store.state.showLyric = false
+  }
+
   if(from.name == null && to.path.lastIndexOf('/recommend') == -1) {
+    
     router.push('/')
   }
   next()

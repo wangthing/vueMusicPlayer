@@ -2,10 +2,12 @@ export default{
     recommend: null,        //首页推荐全部的
     nowPlaySong:null,       //正在播放的歌曲信息
     recentlyPlayed:[],      //最近播放的列表
-    nowPlayGroup:[],        //正在播放的歌单列表
+    nowPlayId: -1,
+    nowPlayGroup: new Map(),        //正在播放的歌单列表
     nowPlayUrl:[],          //正在播放的url，需要单独获取vkey接口才能获取到，
     groupByCategory:[],    //分类歌单
     showLyric: false,       //是否显示歌词页面
+    showPlayList: true,       //是否显示正在播放列表
     currentTime: 0,
     isStop: false,          //播放器的状态
     audio: null,            //播放器对象，用于全局切换
@@ -18,5 +20,6 @@ export default{
         {from:[10,10,60], to: [40,40,190]},
         {from:[45,45,60], to: [145,145,190]},
         {from:[7,74,127], to: [25,135,220]},
-    ]
+    ],
+    
 }

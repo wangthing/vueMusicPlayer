@@ -42,7 +42,7 @@
             </div>
         </header>
         <div class="main">
-            <songList :songLists="cdLists ? cdLists.songlist : []" > </songList>
+            <songList :groupId = 'id' :songLists="cdLists ? cdLists.songlist : []" > </songList>
         </div> 
     </div>
 </template>
@@ -82,9 +82,7 @@ export default {
                 this.cdLists = res.data.response.cdlist[0]
                 this.songLists = this.cdLists.songlist
                 // console.log("sdashdjhsdjas");
-                this.$store.commit('setNowPlayGroup', {
-                    group: this.songLists
-                })
+                
             }).catch((err) => {
                 console.log(err);
             })
@@ -97,6 +95,7 @@ export default {
             .then(res => {
                 var data = res.response.data
                 this.cdLists = data.list
+                
                 this.songList = cdLists
             })
             .catch(err => {
