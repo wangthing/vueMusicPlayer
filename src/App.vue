@@ -9,15 +9,13 @@
       
     <keep-alive>
       <Player></Player>
-      <playList></playList>
+      
     </keep-alive>
-    
+    <playList></playList>
   </div>
 </template>
 
 <script>
-
-
 import Player from '@/components/player/player'
 import playList from '@/components/my/playList'
 export default {
@@ -33,6 +31,9 @@ export default {
   },
   created () {
     // this.$router.repa
+  },
+  mounted () {
+    console.log(this);
   },
   destroyed() {
     // window.removeEventListener('beforeunload')

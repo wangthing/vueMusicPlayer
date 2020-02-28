@@ -92,8 +92,9 @@ export default {
                 // 这是排行榜所有的歌曲
                 var data = res.data.response.detail.data.data
                 this.songLists = data
+                // 暂不支持播放排行榜的歌单，接口太复杂了
                 this.$store.commit('setNowPlayGroup', {
-                    group: this.songLists.song.slice(0,100),
+                    group: this.songLists.song,
                     id: this.topId
                 })
                 Indicator.close()
@@ -101,13 +102,14 @@ export default {
                 Indicator.close()                
             })
         },
-        // 切换歌曲
+        // 切换歌曲 排行榜
         switchSong (songId, albumMid) {
             // 这首歌已经在播放了
             if( this.nowPlaySong && songId === this.nowPlaySong.track_info.id) return;
             // 先判断这个id的歌是不是在最近播放里面获取过
             let isPlayed = this.$store.getters.getRecentlyPlayed(songId);
-            
+            // 正在播放的id变成这个歌单的id
+            this.$store.state.nowPlayId = this.topId
             if(isPlayed.length) {
                 // 返回的是一个数组
                 let song = isPlayed[0]
@@ -139,7 +141,7 @@ export default {
                 var isPay = song.pay.payplay
                 if(isPay) {
                     Toast("这首歌是付费的，试试别的吧")
-                    retutn;
+                    return;
                 }
                 var songMid = song.songmid
                 this.getSongInfo(songMid, songId)

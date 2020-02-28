@@ -16,7 +16,9 @@
                 <h1>MV: <span>{{data.total_mv}}</span></h1>
             </div>
         </div>
-        <songList :songLists="songLists ? songLists : []"></songList>
+        <songList :songLists="songLists ? songLists : []"
+                :groupId = "singerInfo  && singerInfo.mid"
+        ></songList>
         <topBar :title="singerInfo ? singerInfo.name : ''"
                 :titleColor = "'white'"
         ></topBar>
@@ -61,7 +63,10 @@ export default {
                 this.singerInfo = data.singer_info
                 this.songLists = data.songlist
                 Indicator.close()
-                
+                this.$store.commit('setNowPlayGroup', {
+                    group: this.songLists,
+                    id: this.singerInfo.mid
+                })
             }).catch((err) => {
                 Indicator.close()
                 Toast('加载失败')               
@@ -82,7 +87,6 @@ export default {
     beforeRouteEnter: (to, from, next) => {
         console.log(from,to);  
         next (vm => {
-            
             if(vm.id != to.params.id) {
                 console.log("不一样");
                 

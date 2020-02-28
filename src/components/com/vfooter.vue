@@ -3,7 +3,7 @@
         <ul >
             <li id="/" >
                 <!-- <router-link to="first"></router-link> -->
-                <i slot="icon" class="iconfont icon-sanheng1"></i>
+                <i slot="icon" style="font-weight:bold" >Music</i>
             </li>   
             <li class="title">
                 <router-link to="recommend" >推荐</router-link>

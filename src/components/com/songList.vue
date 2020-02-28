@@ -76,6 +76,7 @@ export default {
             // 这首歌已经在播放了
             if( this.nowPlaySong && id === this.nowPlaySong.track_info.id) return;
             // 正在播放的id变成这个歌单的id
+            
             this.$store.state.nowPlayId = this.groupId
             // 先判断这个id的歌是不是在最近播放里面获取过
             let isPlayed = this.$store.getters.getRecentlyPlayed(id);
@@ -123,9 +124,11 @@ export default {
     props:{
         songLists:{
             type:Array,
+            default: []
         },
         groupId: {
-            type: String
+            type: String,
+            default: '666'
         }
     },
     computed: {
@@ -133,10 +136,18 @@ export default {
             return this.$store.getters.getSongPlay
         }, 
     },
+    mounted () {
+        this.$store.commit('setNowPlayGroup', {
+            // 默认是历史歌单
+                group: this.$store.state.recentlyPlayed,
+                id: this.groupId
+        })
+    },
     watch: {
         songLists : {
             handler (newVal) {
-                console.log(newVal);
+            console.log("有新的id的吗",this.groupId, newVal);
+
                 this.$store.commit('setNowPlayGroup', {
                     group: newVal,
                     id: this.groupId

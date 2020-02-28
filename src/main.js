@@ -28,6 +28,11 @@ router.beforeEach((to, from, next) => {
   if(store.state.showLyric) {
 
      store.state.showLyric = false
+     return;
+  }
+  if(store.state.showPlayList) {
+    store.state.showPlayList = false
+    return
   }
 
   if(from.name == null && to.path.lastIndexOf('/recommend') == -1) {

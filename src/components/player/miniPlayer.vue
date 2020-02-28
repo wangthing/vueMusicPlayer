@@ -30,7 +30,7 @@
 
                 </span>
             </i>
-            <i class="iconfont icon-bofangliebiao"></i>
+            <i class="iconfont icon-bofangliebiao" @click.stop="showPlayList"></i>
         </div>
     </div>
 </template>
@@ -116,6 +116,9 @@ export default {
             var currentTime = e.target.currentTime
             // console.log(currentTime);
             this.$store.state.currentTime = currentTime+1
+        },
+        showPlayList () {
+            this.$store.state.showPlayList = true
         }
     },
     computed: {

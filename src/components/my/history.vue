@@ -6,7 +6,7 @@
                 :them = '{from: [245,245,245], to: [245,245,245]}'
         >
         </topBar>
-        <songLists v-if="songLists.length" :groupId = "'0'" :songLists="songLists"> </songLists>
+        <songLists v-if="songLists.length"  :groupId = "'6666'" :songLists="songLists.length ? songLists : []"> </songLists>
         <p class="nowPlay" v-if="!songLists.length">暂时还没有播放过！</p>
     </div>
 </template>
@@ -44,7 +44,6 @@ export default {
        
     },
     beforeRouteEnter (to, from, next) {
-        
         next(vm => {
             vm.getSongLists()
         })
@@ -57,7 +56,7 @@ export default {
     
     .nowPlay
         font-size: 1.8rem
-        line-height: 10
+        line-height: 18
         text-align: center
         color: gray
 </style>

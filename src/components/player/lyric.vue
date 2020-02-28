@@ -82,14 +82,14 @@ export default {
               params: {songmid: mid}
             })
             .then(res => {
-                console.log(res);
+                // console.log(res);
 
                 this.lyric = res.data.response.lyric.split('\n')
-                console.log(this.lyric);
+                // console.log(this.lyric);
             })
             .catch(err => {
                 this.lyric = []
-                console.log(err);
+                // console.log(err);
             })
         },
         // 点击进度条改变进度条
@@ -122,13 +122,11 @@ export default {
             var width = e.offsetX
             var totalWidth = +(this.getTotalWidth).replace('px','')
             var changeTime = Math.floor((width/totalWidth)*audio.duration)
-            console.log(changeTime);
             this.audio.currentTime = changeTime
         },
         // 点击歌词踢桃转到这句歌词
         jumpToHere (e) {
             var id = e.target.childNodes[1].id
-            console.log(id);
             document.getElementById(id).scrollIntoView({
                 behavior: "smooth"
             })
