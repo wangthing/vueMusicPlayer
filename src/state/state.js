@@ -2,8 +2,8 @@ export default{
     recommend: null,        //首页推荐全部的
     nowPlaySong:null,       //正在播放的歌曲信息
     recentlyPlayed:[],      //最近播放的列表
-    nowPlayId: -1,
-    nowPlayGroup: new Map(),        //正在播放的歌单列表
+    nowPlayId: '',
+    nowPlayGroup: {},        //正在播放的歌单列表
     nowPlayUrl:[],          //正在播放的url，需要单独获取vkey接口才能获取到，
     groupByCategory:[],    //分类歌单
     showLyric: false,       //是否显示歌词页面

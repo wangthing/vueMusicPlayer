@@ -40,9 +40,9 @@
                 <i class="iconfont icon-fenxiang"></i>分享
                 </span>
             </div>
-        </header>
+        </header>   
         <div class="main">
-            <songList :groupId = 'id' :songLists="cdLists ? cdLists.songlist : []" > </songList>
+            <songList :groupId ="id"  :songLists="cdLists ? cdLists.songlist : []" > </songList>
         </div> 
     </div>
 </template>
@@ -78,11 +78,17 @@ export default {
             })
             .then((res) => {
                 Indicator.close();              
-                console.log("dasdasd");  
+                 
                 this.cdLists = res.data.response.cdlist[0]
                 this.songLists = this.cdLists.songlist
-                // console.log("sdashdjhsdjas");
-                
+                console.log(this.songLists, this.id,"到底是zenm回事");
+
+                this.$store.commit('setNowPlayGroup', {
+                    group: this.songLists,
+                    id: this.id
+                })
+
+               
             }).catch((err) => {
                 console.log(err);
             })
@@ -120,8 +126,7 @@ export default {
     },
     mounted() {
         
-        console.log(this.them);
-        console.log("重新加载了吗");
+      
         
         Indicator.open({
             text: '加载中...',

@@ -2,9 +2,9 @@
     <div class="lists" id="wrap" @click="hide" :class= "isShow ? 'show' : ''" w-if="getNowPlayId">
         
         <div class="content" @click.stop="clickContent">
-            <p class="action"> <i style="color: #31c27c" class="iconfont icon-bofang1"></i> 播放全部 ({{ getNowPlayGroup && getNowPlayGroup.length  }})</p>
+            <p class="action"> <i style="color: #31c27c" class="iconfont icon-bofang1"></i> 播放全部 ({{ getNowGroupById && getNowGroupById.length  }})</p>
             <ul class="songs" v-if = "getNowPlayId && getNowPlayId.length > 3 || isNaN(getNowPlayId)"> 
-                <li class="item" v-for="(item, index) in getNowPlayGroup"
+                <li class="item" v-for="(item, index) in getNowGroupById"
                  :key="index" 
                  v-if=" item && !item.pay.pay_play"
                  :class="nowPlaySong && nowPlaySong.track_info.id == item.id ? 'now iconfont' : ''"
@@ -22,9 +22,9 @@
                     
                 </li>
             </ul>
-            <!-- <p>{{ getNowPlayId}}</p> -->
+            <p>{{ getNowPlayId}}</p>
             <ul class="songs"  v-if = " getNowPlayId && getNowPlayId.length <= 3" > 
-                <li class="item" v-for="(item, index) in getNowPlayGroup"
+                <li class="item" v-for="(item, index) in getNowGroupById"
                  :key="index"
                  :class="nowPlaySong && nowPlaySong.track_info.id == item.songId ? 'now iconfont' : ''"  
                  @click = "  switchSong2(item.albumMid, item.songId)"
@@ -44,13 +44,14 @@
 </template>
 
 <script>
+import eventBus from '@/api/eventBus'
 import {Toast} from 'mint-ui'
 import {Indicator} from 'mint-ui'
 export default {
     name: 'palyList',
     data() {
         return {
-            
+          groupId: ''  
         }
     },
     methods: {
@@ -182,30 +183,84 @@ export default {
             }).catch((err) => {
                 console.log(err);
             })
+        },
+        next () {
+            // console.log(this);
+            this.$bus.$on('nextSong', (isNext) => {
+
+                var group = this.getNowGroupById
+                var nowPlay = this.nowPlaySong
+                var nowPlayId = this.getNowPlayId
+                console.log(group, nowPlayId, nowPlay,"--------------------");
+                group.forEach ((item, index, arr) => {
+                    if((item.id || item.songId) == nowPlay.track_info.id ) {
+                        console.log("找到了id一样的");
+                        // true是上一首
+                        let songInfo 
+                        
+                        if(isNext) {
+                            console.log("下一首");
+
+                            songInfo = arr[index+1 < arr.length ? index+1 : 0]
+                        }else {
+                             songInfo = arr[(index-1) > 0 ? (index-1) : arr.length-1]
+                        }
+                        
+                        if(this.getNowPlayId.length <= 3) {
+                            console.log("下一首");
+                                this.switchSong2(songInfo.albumMid, songInfo.songId)
+                        } else {
+                            this.switchSong(songInfo.mid,songInfo.id)
+
+                        }
+                    
+                    } 
+                })
+            })
         }
 
     },
+    created() {
+        this.next()
+    },
     computed: {
-        getNowPlayGroup () {
+        getNowGroupById () {
+            return this.$store.getters.getNowPlayGroup[this.getNowPlayId] 
+        },
+        getNowGroup () {
+            return this.$store.getters.getNowPlayGroup
 
-            return this.$store.state.nowPlayGroup.get(this.getNowPlayId);
         },
         isShow () {
             return this.$store.state.showPlayList
         },
         // 获取现在播放歌单的id 两位数的是排行榜的，排行榜孤儿
         getNowPlayId () {
-            return this.$store.state.nowPlayId
+            return this.$store.state.nowPlayId;
+            // set: (newVal) => {
+            //     this.$store.nowPlayId = newVal
+            // }
         },
         nowPlaySong () {
             return this.$store.getters.getSongPlay
         }
     },
+    watch: {
+        getNowPlayId : {
+            handler(newVal) {
+                console.log(this.getNowPlayId);
+                console.log(newVal,"新的ID变化了");
+                this.groupId = newVal
+                // this.getNowPlayId = newVal
+            },
+            deep: true,
+            immediate: true
+        }
+    },
     mounted () {
-        console.log("object");
-        var timer = setTimeout(() => {
-            console.log("正在播放的歌单",this.getNowPlayGroup);
-        },1000)
+        setInterval(() => {
+            console.log(this.getNowGroupById, this.getNowPlayId);
+        }, 35000);
         
     }
 }

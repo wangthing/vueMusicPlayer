@@ -40,7 +40,7 @@ export default {
             localStorage.setItem('_historyplayed',JSON.stringify(_historyplayed))
         }
 
-        console.log("mutations收到了歌名：",payload.song.track_info.name );
+        // console.log("mutations收到了歌名：",payload.song.track_info.name );
         state.nowPlaySong = payload.song
         state.recentlyPlayed.push(payload.song)
         
@@ -65,13 +65,14 @@ export default {
     },
     // 这是最近播放的歌单
     setNowPlayGroup: (state, payload) => {
-
-        if(!state.nowPlayGroup.get(payload.id)) {
-            state.nowPlayGroup.set(payload.id,payload.group)
+            // console.log("你到底是個什麽", payload.group,payload.id);
+            
+            state.nowPlayGroup[payload.id] =  payload.group
             state.nowPlayId = payload.id
-        }
+    
+        console.log(state.nowPlayGroup,state.nowPlayId,"改变了吗");
         
-        console.log(state.nowPlayGroup);
+        
     },
     addGroupByCategory (state, payload) {
         state.groupByCategory = [... new Set(state.groupByCategory.concat(payload.list)) ]

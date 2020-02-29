@@ -57,7 +57,7 @@ export default {
               params: {singermid: mid}
             })
             .then((res) => {
-                console.log(res);
+                
                 var data = res.data.response.singer.data
                 this.data = data
                 this.singerInfo = data.singer_info

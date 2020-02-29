@@ -78,6 +78,9 @@ export default {
             // 正在播放的id变成这个歌单的id
             
             this.$store.state.nowPlayId = this.groupId
+            
+
+            
             // 先判断这个id的歌是不是在最近播放里面获取过
             let isPlayed = this.$store.getters.getRecentlyPlayed(id);
             // console.log(isPlayed);
@@ -131,31 +134,21 @@ export default {
             default: '6666'
         }
     },
+    
     computed: {
         nowPlaySong () {
             return this.$store.getters.getSongPlay
         }, 
     },
     mounted () {
-        this.$store.commit('setNowPlayGroup', {
-            // 默认是历史歌单
-                group: this.$store.state.recentlyPlayed,
-                id: this.groupId
-        })
+       
     },
-    updated () {
-        
-        this.$store.commit('setNowPlayGroup', {
-                // 默认是历史歌单
-                group: this.$store.state.recentlyPlayed,
-                id: this.groupId
-        })
-    },
+    
     watch: {
         songLists : {
             handler (newVal) {
-            console.log("有新的id的吗",this.groupId, newVal);
-
+            
+                console.log(this.groupId,"這裏的yuan原因嗎");
                 this.$store.commit('setNowPlayGroup', {
                     group: newVal,
                     id: this.groupId
@@ -163,6 +156,16 @@ export default {
             },
             deep: true,
             immediate: true, 
+        },
+        groupId: {
+            handler (newVal) {
+                if(newVal && newVal != this.groupId) {
+                    this.groupId = newVal
+                }
+                console.log(newVal,"这个时候dasdhgashdgasgdjhgh");
+            },
+            deep: true,
+            immediate: true
         }
     },
 

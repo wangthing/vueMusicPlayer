@@ -39,7 +39,7 @@
             </div>
             <div class="operate">
                 <span class="iconfont icon-SanMiAppglyphico3"></span>
-                <span class="iconfont icon-SanMiAppglyphico" ></span>
+                <span class="iconfont icon-SanMiAppglyphico" @click="preSong"></span>
                 <!-- <span class="iconfont "></span> -->
                 <span class="iconfont stop-play" @click = "stopOrPlay" :class="!isStop ?  'icon-zhongzhi' : 'icon-bofang'"></span>
                 <span class="iconfont icon-SanMiAppglyphico1" @click="nextSong"></span>
@@ -146,7 +146,11 @@ export default {
             
         },
         nextSong () {
-            console.log(this.getNowPlayGroup);
+            // console.log(this.$root);
+            this.$bus.$emit('nextSong',true)
+        },
+        preSong () {
+            this.$bus.$emit('nextSong', false)
         }
     },
     computed: {

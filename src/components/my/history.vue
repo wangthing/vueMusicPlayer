@@ -33,7 +33,7 @@ export default {
         },
         getSongLists () {
             this.songLists =  this.getDate("_historyplayed")
-            console.log(this.songLists);
+            // console.log(this.songLists);
         } 
 
     },
