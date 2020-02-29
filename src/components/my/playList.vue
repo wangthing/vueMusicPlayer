@@ -2,9 +2,9 @@
     <div class="lists" id="wrap" @click="hide" :class= "isShow ? 'show' : ''" w-if="getNowPlayId">
         
         <div class="content" @click.stop="clickContent">
-            <p class="action"> <i style="color: #31c27c" class="iconfont icon-bofang1"></i> 播放全部 ({{ getNowGroupById && getNowGroupById.length  }})</p>
+            <p class="action"> <i style="color: #31c27c" class="iconfont icon-bofang1"></i> 播放全部 ({{ getNowGroup && getNowGroup.length  }})</p>
             <ul class="songs" v-if = "getNowPlayId && getNowPlayId.length > 3 || isNaN(getNowPlayId)"> 
-                <li class="item" v-for="(item, index) in getNowGroupById"
+                <li class="item" v-for="(item, index) in getNowGroup"
                  :key="index" 
                  v-if=" item && !item.pay.pay_play"
                  :class="nowPlaySong && nowPlaySong.track_info.id == item.id ? 'now iconfont' : ''"
@@ -22,9 +22,9 @@
                     
                 </li>
             </ul>
-            <p>{{ getNowPlayId}}</p>
+            <!-- <p>{{ getNowPlayId}}</p> -->
             <ul class="songs"  v-if = " getNowPlayId && getNowPlayId.length <= 3" > 
-                <li class="item" v-for="(item, index) in getNowGroupById"
+                <li class="item" v-for="(item, index) in getNowGroup"
                  :key="index"
                  :class="nowPlaySong && nowPlaySong.track_info.id == item.songId ? 'now iconfont' : ''"  
                  @click = "  switchSong2(item.albumMid, item.songId)"
@@ -186,9 +186,9 @@ export default {
         },
         next () {
             // console.log(this);
-            this.$bus.$on('nextSong', (isNext) => {
+            this.$bus.$on('nextSong', (isNext = true) => {
 
-                var group = this.getNowGroupById
+                var group = this.getNowGroup
                 var nowPlay = this.nowPlaySong
                 var nowPlayId = this.getNowPlayId
                 console.log(group, nowPlayId, nowPlay,"--------------------");
@@ -224,21 +224,20 @@ export default {
         this.next()
     },
     computed: {
-        getNowGroupById () {
-            return this.$store.getters.getNowPlayGroup[this.getNowPlayId] 
-        },
+
         getNowGroup () {
             return this.$store.getters.getNowPlayGroup
-
         },
         isShow () {
             return this.$store.state.showPlayList
         },
         // 获取现在播放歌单的id 两位数的是排行榜的，排行榜孤儿
         getNowPlayId () {
-            return this.$store.state.nowPlayId;
-            // set: (newVal) => {
-            //     this.$store.nowPlayId = newVal
+            // get() {
+                return this.$store.getters.getNowPlayId;
+            // },
+            // set: function (newVal) {
+                // this.getNowPlayId = newVal
             // }
         },
         nowPlaySong () {
@@ -246,21 +245,9 @@ export default {
         }
     },
     watch: {
-        getNowPlayId : {
-            handler(newVal) {
-                console.log(this.getNowPlayId);
-                console.log(newVal,"新的ID变化了");
-                this.groupId = newVal
-                // this.getNowPlayId = newVal
-            },
-            deep: true,
-            immediate: true
-        }
+
     },
     mounted () {
-        setInterval(() => {
-            console.log(this.getNowGroupById, this.getNowPlayId);
-        }, 35000);
         
     }
 }

@@ -48,7 +48,7 @@ export default {
     },
     methods: {
         switchLyric (e) {
-            console.log(e.target);
+            // console.log(e.target);
 
             this.$store.commit('switchLyric')
         }
@@ -69,14 +69,14 @@ export default {
             }
         },
         onPlay () {
-            console.log("开始播放了");
+            // console.log("开始播放了");
             Indicator.close()
             this.$store.commit('stopOrPlay',{
                     value: false
             })
         },
         onWaiting () {
-            console.log("正在加载");
+            // console.log("正在加载");
             Indicator.open({
                 text: '正在缓存...',
                 sninnerType: 'fading-circle'
@@ -91,9 +91,12 @@ export default {
         },
         onEnded (e) {
             e.target.pause()
+            
             this.$store.commit('stopOrPlay',{
                     value: true
             })
+            // 结束了就下一首
+            this.$bus.$emit('nextSong', true)
         },
         onLoadStart (e) {
             this.$store.state.currentTime = 0
@@ -104,7 +107,7 @@ export default {
             })
         },
         onCanPlay (e) {
-            console.log("可以播放了");
+            // console.log("可以播放了");
             e.target.play()
 
             this.$store.commit('stopOrPlay',{
@@ -138,7 +141,7 @@ export default {
 
     },
     mounted() {
-        console.log(document.getElementById('audio'));
+        // console.log(document.getElementById('audio'));
         this.$store.state.audio = document.getElementById('audio')
     },
 }
@@ -182,36 +185,24 @@ export default {
                 margin-right: .5rem
                 border-radius: 50%
             .info
+                overflow: hidden
                 p
                     text-overflow: ellipsis
                     overflow: hidden
                     white-space: nowrap
-
                 span 
                     font-size: 1.2rem
 
             i
                 font-size: 8rem
         .right
-            width: 25vw;
+            width: 20vw;
+            display: flex
+            justify-content: space-between
             i
-                margin-left: 1rem
+                // margin-left: 1rem
                 font-size: 2.8rem
                 color: $baseColor
-                // position: relative
-                // .isStop
-                    // position: absol  ute
-                    // top: -0.2rem
-                    // left: -0.2rem
-                    // right: -0.2rem
-                    // bottom: -0.2rem
-                    // border-radius: 50%
-                    // border: .2rem solid red
-                    // overflow: hidden
-                    
-                    
-                    // background-color: red
-
         .left
             width: 65vw
             i

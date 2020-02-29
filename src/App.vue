@@ -33,7 +33,6 @@ export default {
     // this.$router.repa
   },
   mounted () {
-    console.log(this);
   },
   destroyed() {
     // window.removeEventListener('beforeunload')

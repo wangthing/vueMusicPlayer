@@ -93,7 +93,7 @@ export default {
                 var data = res.data.response.detail.data.data
                 this.songLists = data
                 // 暂不支持播放排行榜的歌单，接口太复杂了
-                this.$store.commit('setNowPlayGroup', {
+                this.$store.commit('setNowPlayGroups', {
                     group: this.songLists.song,
                     id: this.topId
                 })
@@ -113,7 +113,6 @@ export default {
             if(isPlayed.length) {
                 // 返回的是一个数组
                 let song = isPlayed[0]
-                console.log("已经播放了，去内存中取吧");
                 this.$store.commit('setNowPlay',{
                     song
                 })
@@ -136,13 +135,15 @@ export default {
             .then(res => {
                 var data = res.data.response.data
                 var song = data.list.filter(item => item.songid == songId)[0]
-                console.log(song);
                 // 判断是不是付费的
                 var isPay = song.pay.payplay
                 if(isPay) {
                     Toast("这首歌是付费的，试试别的吧")
                     return;
                 }
+                this.$store.commit('setNowPlayGroup', {
+                    group: this.songLists.song
+                })
                 var songMid = song.songmid
                 this.getSongInfo(songMid, songId)
             })
@@ -170,7 +171,7 @@ export default {
             })
             .then((res) => {
                 var song = res.data.response.songinfo.data
-                console.log("歌曲信息",song);
+                // console.log("歌曲信息",song);
                 this.$store.commit('setNowPlayFirst', {
                     song
                 })
@@ -217,9 +218,6 @@ export default {
     updated () {
 
         
-    },
-    beforeRouteUpdate (to, from, next) {
-        console.log(to, from,'uodate');
     },
     beforeRouteEnter (to, from, next) {
         next( (vm) => {

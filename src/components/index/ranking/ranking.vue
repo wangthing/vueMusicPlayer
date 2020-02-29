@@ -52,7 +52,7 @@ export default {
         }
     },
     mounted () {
-        console.log(this.getRankList);
+        // console.log(this.getRankList);
     }
 }
 </script>

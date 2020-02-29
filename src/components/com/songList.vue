@@ -78,18 +78,19 @@ export default {
             // 正在播放的id变成这个歌单的id
             
             this.$store.state.nowPlayId = this.groupId
-            
-
-            
+            this.$store.commit('setNowPlayGroup',{
+                    group: this.songLists
+            })
             // 先判断这个id的歌是不是在最近播放里面获取过
             let isPlayed = this.$store.getters.getRecentlyPlayed(id);
             // console.log(isPlayed);
             if(isPlayed.length) {
                 let song = isPlayed[0]
-                console.log("已经播放了，去内存中取吧");
+                // console.log("已经播放了，去内存中取吧");
                 this.$store.commit('setNowPlay',{
                     song
                 })
+
                 this.getSongVkey(mid, id)
                 return;
             }   
@@ -99,7 +100,7 @@ export default {
             })
             .then((res) => {
                 var song = res.data.response.songinfo.data
-                console.log("歌曲信息",song);
+                // console.log("歌曲信息",song);
                 this.$store.commit('setNowPlayFirst', {
                     song
                 })
@@ -115,7 +116,7 @@ export default {
             })
             .then(res => {
                 var playList = res.data.response.playLists
-                console.log(playList);
+                // console.log(playList);
 
                 this.$store.state.nowPlayUrl = playList[0]
             })
@@ -127,7 +128,9 @@ export default {
     props:{
         songLists:{
             type:Array,
-            default: []
+            default () {
+                return []
+            }
         },
         groupId: {
             type: String,
@@ -148,8 +151,8 @@ export default {
         songLists : {
             handler (newVal) {
             
-                console.log(this.groupId,"這裏的yuan原因嗎");
-                this.$store.commit('setNowPlayGroup', {
+                // console.log(this.groupId,"這裏的yuan原因嗎");
+                this.$store.commit('setNowPlayGroups', {
                     group: newVal,
                     id: this.groupId
                 })
@@ -162,7 +165,6 @@ export default {
                 if(newVal && newVal != this.groupId) {
                     this.groupId = newVal
                 }
-                console.log(newVal,"这个时候dasdhgashdgasgdjhgh");
             },
             deep: true,
             immediate: true

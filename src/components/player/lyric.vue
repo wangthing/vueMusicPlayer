@@ -138,7 +138,6 @@ export default {
         },
         // 当用户滑动的时候，就不要让歌词自动定位
         onScroll () {
-            console.log("滚动了");
             this.isDrag = true
             setTimeout(() => {
                 this.isDrag = false
@@ -185,10 +184,7 @@ export default {
         isStop (){
             return this.$store.state.isStop
         },
-        // 获取现在播放的歌单
-        getNowPlayGroup () {
-            return this.$store.getters.getNowPlayGroup.get(this.getNowPlayId)
-        },
+        
         getNowPlayId () {
             return this.$store.state.nowPlayId
         }
@@ -226,7 +222,6 @@ export default {
     mounted () {
         setTimeout(() => {
             if(!this.audio) {
-                console.log("hasdasda");
                 this.audio = document.getElementById('audio')
             }
         }, 10)

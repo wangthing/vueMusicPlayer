@@ -111,10 +111,9 @@ export default {
               params: {area: area,sex: sex, index: index, genre: genre, page: page}
             })
             .then((res) => {
-                console.log(res); 
                 var data = res.data.response.singerList.data
                 this.total = data.total
-                console.log(this.total);
+
                 this.tags = data.tags
                 this.singerByTag = data.singerlist
 
@@ -126,13 +125,13 @@ export default {
         },
         swichType (e) {
             if(e.target.nodeName.toLowerCase() == 'ul') {
-                console.log("点错了");
+                
                 return
             }
             var id = e.target.id;
             var index = e.target.dataset.index
             this.selectedId[index] = id
-            console.log(this.selectedId);
+
             this.getSinger()
         },
         checkSinger (id, mid, pic) {

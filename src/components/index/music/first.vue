@@ -89,7 +89,7 @@
 
 import vFooter from '@/components/com/vfooter'
 import {Toast} from 'mint-ui'
-import topSearch from '@/components/com/top-search'
+import {Indicator } from 'mint-ui'
 import vSwiper from './swiper'
 export default {
     name:'index',
@@ -102,12 +102,15 @@ export default {
         }
     },
     components: {
-        topSearch,
         vSwiper,
         vFooter
     },
     methods: {
         getRecommendList () {
+            Indicator.open({
+                text: '加载中...',
+                sninnerType: 'fading-circle'
+            });
             var recommend = this.$store.state.recommend
             if(recommend) {
                 this.recommendList = recommend.response.recomPlaylist.data.v_hot
@@ -121,25 +124,15 @@ export default {
                 this.recommendList = data.response.recomPlaylist.data.v_hot
                 this.recommend = data;
                 this.$store.state.recommend  = data;
-                console.log("加载好了推荐个蛋");
+                Indicator.close()
+                // console.log("加载好了推荐个蛋");
             })
             .catch((err) => {
+                Indicator.close()
                 alert(err.toString())
             })
         },
-        // 获取值得一听的个，从推荐最热歌单随机选取一个歌单的列表
-        getWorthySongs () {
-            var contentId = this.recomPlaylist.content_id
-            this.$http.get(`getSongListDetail`, {
-              params: {disstid:contentId}
-            })
-            .then(res => {
-                this.worthySongs = res.data.response
-            })
-            .then(err => {
-                console.log(err);
-            })
-        },
+       
         getMV () {
             this.$http.get(`getMvByTag`, {
               params: {}
@@ -174,6 +167,10 @@ export default {
         this.getRecommendList();
         this.getMV()
     },
+    destroyed () {
+        Indicator.close()
+
+    }
 }
 </script>
 <style scoped>

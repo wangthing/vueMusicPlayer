@@ -11,7 +11,7 @@ export default{
     // 
     getRecentlyPlayed: (state, getters) => (id) => {
         if(!state.recentlyPlayed.length) return false;
-        console.log(state.recentlyPlayed);
+        // console.log(state.recentlyPlayed);
         return state.recentlyPlayed.filter(item => {
             return item.track_info.id == id
         })
@@ -31,20 +31,22 @@ export default{
     // 这个好像没啥用了
     getGroupByCategoryById: (state, getters) => (id) => {
         
-        console.log(state,"获取啊");
+        // console.log(state,"获取啊");
         return (state.groupByCategory.filter( item => {
             return item.dissid == id
         }))[0]
     },
     // 获取之前获取过的分类歌单
     getGroupByCategory: (state) => {
-        console.log(state.GroupByCategory);
         return state.GroupByCategory
     },
     // 获取现在正在播放的歌单
-    getNowPlayGroup: (state) => {
-        
+    getNowPlayGroup: (state, getters) =>  {
         return state.nowPlayGroup
+
+    },
+    getNowPlayId (state) {
+        return state.nowPlayId
     }
     
 }

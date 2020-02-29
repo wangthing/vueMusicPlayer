@@ -73,7 +73,7 @@ export default {
               params: {}
             })
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 var data = res.data.response.data.categories
                 this.allCategory = data
                 this.checkCategory()
@@ -96,7 +96,7 @@ export default {
               params: {categoryId: id, limit: 32}
             })
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 this.groupList.splice(index, 1, res.data.response.data.list)
             
                 // this.$store.commit('addGroupByCategory',{

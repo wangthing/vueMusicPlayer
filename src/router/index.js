@@ -10,7 +10,6 @@ Router.prototype.push = function push(location) {
 
 // 首页四个页面
 // import first from '@/components/index/first'
-import recommend from '@/components/index/recommond'
 import ranking from '@/components/index/ranking/ranking'
 import singerList from '@/components/singer/singerList'
 import singerInfo from '@/components/singer/singerInfo'

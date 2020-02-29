@@ -32,10 +32,7 @@ export default {
         goSearch () {
             this.$router.push('/search')
         }
-    }, 
-    beforeRouteLeave (to, from, next) {
-        console.log(to, from, next);
-    }    
+    },  
 }
 </script>
 <style scoped>

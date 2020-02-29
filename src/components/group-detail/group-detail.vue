@@ -83,7 +83,7 @@ export default {
                 this.songLists = this.cdLists.songlist
                 console.log(this.songLists, this.id,"到底是zenm回事");
 
-                this.$store.commit('setNowPlayGroup', {
+                this.$store.commit('setNowPlayGroups', {
                     group: this.songLists,
                     id: this.id
                 })

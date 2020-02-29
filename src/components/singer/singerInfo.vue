@@ -82,13 +82,10 @@ export default {
     },
     mounted() {
         // this.getSingInfo()
-        console.log("更新了吗");
     },
     beforeRouteEnter: (to, from, next) => {
-        console.log(from,to);  
         next (vm => {
             if(vm.id != to.params.id) {
-                console.log("不一样");
                 
                 vm.id = to.params.id
                 vm.mid = to.query.mid

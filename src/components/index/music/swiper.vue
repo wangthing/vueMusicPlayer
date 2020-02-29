@@ -22,9 +22,7 @@
 </template>
 
 <script>
-import {getCarousel} from '@/api/recommend_swiper'
 import {Toast} from 'mint-ui'
-import {CODE_SUCCESS} from "@/api/config"
 export default {
   name: "vSwiper",
   data() {

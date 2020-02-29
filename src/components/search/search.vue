@@ -157,7 +157,7 @@ export default {
             })
         },
         iptFocus () {
-            console.log("点击欧文输入框");
+            ("点击欧文输入框");
             if(this.showResult && this.keyword != '') {
                 this.showResult = false
             }
@@ -174,7 +174,6 @@ export default {
               params: {key: key, limit: 10}
             })
             .then((res) => {
-                console.log(res);
                 var data = res.data.response.data
                 this.smartKeys = data
             }).catch((err) => {

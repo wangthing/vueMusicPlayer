@@ -17,7 +17,7 @@ export default {
             historySong.album = songinfo.album
         }
         
-        console.log(historySong, songinfo);
+        // console.log(historySong, songinfo);
 
         // 将播放的歌曲存放到本地缓存，还需要对歌000过滤
         // 我们字需要track-info里面的
@@ -30,7 +30,7 @@ export default {
             _historyplayed.forEach((item, index, arr) => {
 
                 if(item.id == id) {
-                    console.log(arr);
+                    // console.log(arr);
                     arr.splice(index,1)
                 }
             });
@@ -64,15 +64,12 @@ export default {
         state.isStop = payload.value
     },
     // 这是最近播放的歌单
-    setNowPlayGroup: (state, payload) => {
-            // console.log("你到底是個什麽", payload.group,payload.id);
-            
-            state.nowPlayGroup[payload.id] =  payload.group
-            state.nowPlayId = payload.id
-    
-        console.log(state.nowPlayGroup,state.nowPlayId,"改变了吗");
-        
-        
+    setNowPlayGroups: (state, payload) => {
+            // console.log("你到底是個什麽", payload.group,payload.id);        
+            state.nowPlayGroups[payload.id] =  payload.group
+    },
+    setNowPlayGroup (state, payload) {
+            state.nowPlayGroup = payload.group
     },
     addGroupByCategory (state, payload) {
         state.groupByCategory = [... new Set(state.groupByCategory.concat(payload.list)) ]
