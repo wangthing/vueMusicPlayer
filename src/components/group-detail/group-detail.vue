@@ -81,7 +81,7 @@ export default {
                  
                 this.cdLists = res.data.response.cdlist[0]
                 this.songLists = this.cdLists.songlist
-                console.log(this.songLists, this.id,"到底是zenm回事");
+                // console.log(this.songLists, this.id,"到底是zenm回事");
 
                 this.$store.commit('setNowPlayGroups', {
                     group: this.songLists,

@@ -83,7 +83,7 @@ export default {
             })
         },
         onError (e) {
-            console.log("error", e);
+            console.log("error");
             this.$store.commit('stopOrPlay',{
                     value: true
             })

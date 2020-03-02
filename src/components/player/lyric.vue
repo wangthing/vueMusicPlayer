@@ -103,7 +103,7 @@ export default {
         },
         // 切换暂停和播放
         stopOrPlay () {
-            console.log(this.$refs);            
+            // console.log(this.$refs);            
             if(this.isStop) {
                 this.audio.play()
                 this.$store.commit('stopOrPlay',{

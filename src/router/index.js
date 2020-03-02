@@ -27,6 +27,7 @@ import rankingDetail from '@/components/index/ranking/rankingDetail'
 Vue.use(Router)
 
 export default new Router({
+  
   routes: [
     {
       'path': '/',
