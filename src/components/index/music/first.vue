@@ -36,7 +36,7 @@
             <div class="hot-title">
                 <h1 class="title">
                     <span class="left">超热歌单</span>
-                    <span class="right">更多<i class="iconfont icon-arrow-right"></i> </span>
+                    <!-- <span class="right">更多<i class="iconfont icon-arrow-right"></i> </span> -->
                 </h1>
             </div>
             <div class="hot-list">
